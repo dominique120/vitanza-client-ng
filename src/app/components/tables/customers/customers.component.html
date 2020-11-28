@@ -1,0 +1,190 @@
+<section class="mt-5" id="portfolio">
+  <div class="container">
+    <div class="container my-5 text-center">
+
+
+      <div class="form-group">
+        <button class="btn btn-primary" style="background-color: #333;" (click)="mostrarFormularioAgregar()">New
+          Customer</button>
+      </div>
+
+
+      <div id="formulario-agregar">
+        <form ngNativeValidate [formGroup]="customerAgregarForm" (ngSubmit)="addCustomer(customerAgregarForm.value)">
+
+          <div class="form-group">
+            <input type="text" name="" id="FirstName" class="form-control" placeholder="FirstName"
+            formControlName="FirstName">
+          </div>
+
+          <div class="form-group">
+            <input type="text" name="" id="LastNames" class="form-control" placeholder="LastNames"
+            formControlName="LastNames">
+          </div>
+
+          <div class="form-group">
+            <input type="text" name="" id="PrimaryAddress" class="form-control" placeholder="PrimaryAddress"
+              formControlName="PrimaryAddress">
+          </div>
+
+          <div class="form-group">
+            <input type="text" name="" id="PrimaryPhone" class="form-control" placeholder="PrimaryPhone"
+            formControlName="PrimaryPhone">
+          </div>
+
+          <div class="form-group">
+            <input type="text" name="" id="SecondaryAddress" class="form-control" placeholder="SecondaryAddress"
+            formControlName="SecondaryAddress">
+          </div>
+
+          <div class="form-group">
+            <input type="text" name="" id="SecondaryPhone" class="form-control" placeholder="SecondaryPhone"
+              formControlName="SecondaryPhone">
+          </div>
+
+          <div class="form-group">
+            <input type="text" name="" id="District" class="form-control" placeholder="District"
+            formControlName="District">
+          </div>
+
+          <div class="form-group">
+            <button class="btn btn-primary" style="background-color: #333; margin-right: 10px;"
+              type="submit">Add</button>
+            <button class="btn btn-secondary" type="button" (click)="cerrarFormularioAgregar()">Close</button>
+          </div>
+        </form>
+      </div>
+
+
+
+
+
+
+
+
+
+
+
+<div class="p-4"></div>
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Last Names</th>
+              <th>District</th>
+              <th>Primary Address</th>
+              <th>Secondary Address</th>
+              <th>Primary Phone</th>
+              <th>Secondary Phone</th>
+              <th></th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let cust of customers">
+              <td>{{cust.FirstName}}</td>
+              <td>{{cust.LastNames}}</td>
+              <td>{{cust.District}}</td>
+              <td>{{cust.PrimaryAddress}}</td>
+              <td>{{cust.SecondaryAddress}}</td>
+              <td>{{cust.PrimaryPhone}}</td>
+              <td>{{cust.SecondaryPhone}}</td>
+              <td>
+                <fa-icon [icon]="faEdit" (click)="seleccionar(cust)"></fa-icon>
+              </td>
+              <td>
+                <fa-icon [icon]="faTimes" (click)="eliminar(cust)"></fa-icon>
+              </td>
+             </tr>
+          </tbody>
+        </table>
+
+      </div>
+
+    </div>
+</section>
+
+
+
+
+
+
+
+
+
+<div class="modal fade" id="formularioActualizar" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Update Customer</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form ngNativeValidate [formGroup]="customerActualizarForm" (ngSubmit)="updateCustomer(customerActualizarForm.value)"
+        *ngIf="customerUpdated">
+        <div class="modal-body">
+
+
+          <div class="form-group">
+            <input type="text" name="" id="ClientId_uuid" class="form-control" placeholder="ClientId_uuid" formControlName="ClientId_uuid"
+              required readonly [(ngModel)]="customerUpdated.ClientId_uuid">
+          </div>
+
+                <!--
+    ClientId_uuid: String;
+    FirstName: String;
+    PrimaryAddress: String;
+    PrimaryPhone: String;
+    SecondaryAddress: String;
+    SecondaryPhone: String;
+    District: String;
+    LastNames: String;
+      -->
+
+          <div class="form-group">
+            <input type="text" name="" id="FirstName" class="form-control" placeholder="FirstName" formControlName="FirstName"
+            [(ngModel)]="customerUpdated.FirstName">
+          </div>
+
+          <div class="form-group">
+            <input type="text" name="" id="LastNames" class="form-control" placeholder="LastNames" formControlName="LastNames"
+            [(ngModel)]="customerUpdated.LastNames">
+          </div>
+
+          <div class="form-group">
+            <input type="text" name="" id="PrimaryAddress" class="form-control" placeholder="PrimaryAddress"
+              formControlName="PrimaryAddress" [(ngModel)]="customerUpdated.PrimaryAddress">
+          </div>
+
+          <div class="form-group">
+            <input type="text" name="" id="PrimaryPhone" class="form-control" placeholder="PrimaryPhone" formControlName="PrimaryPhone"
+            [(ngModel)]="customerUpdated.PrimaryPhone">
+          </div>
+
+          <div class="form-group">
+            <input type="text" name="" id="SecondaryAddress" class="form-control" placeholder="SecondaryAddress" formControlName="SecondaryAddress"
+            [(ngModel)]="customerUpdated.SecondaryAddress">
+          </div>
+
+          <div class="form-group">
+            <input type="text" name="" id="SecondaryPhone" class="form-control" placeholder="SecondaryPhone"
+              formControlName="SecondaryPhone" [(ngModel)]="customerUpdated.SecondaryPhone">
+          </div>
+
+          <div class="form-group">
+            <input type="text" name="" id="District" class="form-control" placeholder="District" formControlName="District"
+            [(ngModel)]="customerUpdated.District">
+          </div>
+
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="submit" style="background-color: #333;" class="btn btn-primary">Update</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

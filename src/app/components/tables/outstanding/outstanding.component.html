@@ -1,0 +1,91 @@
+<section class="mt-5" id="portfolio">
+  <div class="container">
+    <div class="container my-5 text-center">
+      <div class="p-4"></div>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Id</th>
+            <th>DatePlaced</th>
+            <th>Notes</th>
+            <th>Delivered</th>
+            <th>Paid</th>
+            <th>View Detail</th>
+
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let order of orders">
+            <td>{{order.OrderId_uuid}}</td>
+            <td>{{order.DatePlaced}}</td>
+            <td>{{order.Notes}}</td>
+            <td>{{order.Delivered}}</td>
+            <td>{{order.Paid}}</td>
+            <td>
+              <fa-icon [icon]="faEdit" (click)="getDetails(order.OrderId_uuid)"></fa-icon>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+    </div>
+
+  </div>
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="modal fade" id="formularioActualizar" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Order Details</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+
+
+
+
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Product</th>
+            <th>Quantity</th>
+            <th>Discount Price</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!--
+              OrderDetailId_uuid: String;
+  OrderId_uuid: String;
+  Product: String;
+  Quantity: Number;
+  OverridePrice: Number;
+          -->
+          <tr *ngFor="let details of orderdetails">
+            <td>{{details.Product}}</td>
+            <td>{{details.Quantity}}</td>
+            <td>{{details.OverridePrice}}</td>
+          </tr>
+        </tbody>
+      </table>
+
+
+
+    </div>
+  </div>
+</div>
