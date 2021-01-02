@@ -19,7 +19,7 @@ export class OrdersService {
       Authorization: 'Bearer ' + localStorage.getItem("jwt")
     });
 
-    const ruta = Constants.base_url_port + "/orders";
+    const ruta = Constants.orderUrl;
     return this.http.get<Order[]>(ruta, { headers: httpHeaders }).pipe(
       map((res) => {
         this.orders = res;
@@ -35,7 +35,7 @@ export class OrdersService {
       Authorization: 'Bearer ' + localStorage.getItem("jwt")
     });
 
-    const ruta = Constants.base_url_port + "/orders/outstanding";
+    const ruta = Constants.outstandingOrdersUrl;
     return this.http.get<Order[]>(ruta, { headers: httpHeaders }).pipe(
       map((res) => {
         this.orders = res;
@@ -48,7 +48,7 @@ export class OrdersService {
 
 
   deleteOrder(orderId) {
-    const ruta = Constants.base_url_port + "/orders?id=" + orderId;
+    const ruta = Constants.orderWithId(orderId);
 
     const httpHeaders: HttpHeaders = new HttpHeaders({
       Authorization: 'Bearer ' + localStorage.getItem("jwt")

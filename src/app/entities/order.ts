@@ -1,10 +1,10 @@
 export class Order{
-  OrderId_uuid: String;
-  DatePlaced: String;
-  ClientId_uuid: String;
-  Notes: String;
-  Delivered: Number;
-  DateDelivered: String;
-  Paid: Number;
-  DatePaid: String;
+  OrderId_uuid: string;
+  DatePlaced: string;
+  ClientId_uuid: string;
+  Notes: string;
+  Delivered: number;
+  DateDelivered: string;
+  Paid: number;
+  DatePaid: string;
 }

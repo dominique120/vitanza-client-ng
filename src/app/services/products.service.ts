@@ -13,13 +13,12 @@ export class ProductsService {
   products: Product[];
   constructor(private http: HttpClient) { }
 
-
   selectProducts(): Observable<Product[]> {
     const httpHeaders: HttpHeaders = new HttpHeaders({
       Authorization: 'Bearer ' + localStorage.getItem("jwt")
     });
 
-    const ruta = Constants.base_url_port + "/products";
+    const ruta = Constants.productUrl;
     return this.http.get<Product[]>(ruta, { headers: httpHeaders }).pipe(
       map((res) => {
         this.products = res;
@@ -29,10 +28,8 @@ export class ProductsService {
     )
   }
 
-
-
   deleteProducts(productId) {
-    const ruta = Constants.base_url_port + "/products?id=" + productId;
+    const ruta = Constants.productWithId(productId);
 
     const httpHeaders: HttpHeaders = new HttpHeaders({
       Authorization: 'Bearer ' + localStorage.getItem("jwt")

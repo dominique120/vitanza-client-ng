@@ -12,7 +12,7 @@ export class LoginService {
   constructor(private http: HttpClient) { }
 
   public signin(user: User){
-    const ruta = Constants.base_url_port + "/auth";
+    const ruta = Constants.authUrl;
     const body = JSON.stringify(user);
     return this.http.post<Response>(ruta, body);
   }

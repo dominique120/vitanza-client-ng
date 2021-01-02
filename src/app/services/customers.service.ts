@@ -12,13 +12,12 @@ export class CustomersService {
   customers: Customer[];
   constructor(private http: HttpClient) { }
 
-
   selectCustomers(): Observable<Customer[]> {
     const httpHeaders: HttpHeaders = new HttpHeaders({
       Authorization: 'Bearer ' + localStorage.getItem("jwt")
     });
 
-    const ruta = Constants.base_url_port + "/customers";
+    const ruta = Constants.customerUrl;
     return this.http.get<Customer[]>(ruta, { headers: httpHeaders }).pipe(
       map((res) => {
         this.customers = res;
@@ -33,7 +32,7 @@ export class CustomersService {
       Authorization: 'Bearer ' + localStorage.getItem("jwt")
     });
 
-    const ruta = Constants.base_url_port + "/customers?id=" + customer_id;
+    const ruta = Constants.customerWithId(customer_id);
 
     return this.http.get<Customer[]>(ruta, { headers: httpHeaders }).pipe(
       map((res) => {
@@ -50,7 +49,7 @@ export class CustomersService {
       Authorization: 'Bearer ' + localStorage.getItem("jwt")
     });
 
-    const ruta = Constants.base_url_port + "/customers";
+    const ruta = Constants.customerUrl;
 
     let reqbody = JSON.stringify(customer);
 
@@ -66,7 +65,7 @@ export class CustomersService {
       Authorization: 'Bearer ' + localStorage.getItem("jwt")
     });
 
-    const ruta = Constants.base_url_port + "/customers?id=" + customer.ClientId_uuid;
+    const ruta = Constants.customerWithId(customer.ClientId_uuid);
 
     let reqbody = JSON.stringify(customer);
 
@@ -74,7 +73,7 @@ export class CustomersService {
   }
 
   deleteCustomer(customer_id) {
-    const ruta = Constants.base_url_port + "/customers?id=" + customer_id;
+    const ruta = Constants.customerWithId(customer_id);
 
     const httpHeaders: HttpHeaders = new HttpHeaders({
       Authorization: 'Bearer ' + localStorage.getItem("jwt")

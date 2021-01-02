@@ -19,7 +19,7 @@ export class OrderdetailsService {
       Authorization: 'Bearer ' + localStorage.getItem("jwt")
     });
 
-    const ruta = Constants.base_url_port + "/orderdetails/by_order?id=" + order_id;
+    const ruta = Constants.ordeDetailWithOrderId(order_id);
     return this.http.get<OrderDetail[]>(ruta, { headers: httpHeaders }).pipe(
       map((res) => {
         this.orderDetails = res;

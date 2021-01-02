@@ -1,10 +1,10 @@
 export class Customer{
-  ClientId_uuid: String;
-  FirstName: String;
-  PrimaryAddress: String;
-  PrimaryPhone: String;
-  SecondaryAddress: String;
-  SecondaryPhone: String;
-  District: String;
-  LastNames: String;
+  ClientId_uuid: string;
+  FirstName: string;
+  PrimaryAddress: string;
+  PrimaryPhone: string;
+  SecondaryAddress: string;
+  SecondaryPhone: string;
+  District: string;
+  LastNames: string;
 }
