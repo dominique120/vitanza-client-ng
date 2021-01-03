@@ -1,9 +1,10 @@
 import { Customer } from '../entities/customer';
 import { Constants } from '../entities/Constants';
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
+import { Observable, pipe, of } from 'rxjs';
+import { map, catchError } from 'rxjs/operators';
+import { LoginService } from './login.service'
 
 @Injectable({
   providedIn: 'root'
@@ -18,11 +19,12 @@ export class CustomersService {
     });
 
     const ruta = Constants.customerUrl;
-    return this.http.get<Customer[]>(ruta, { headers: httpHeaders }).pipe(
-      map((res) => {
-        this.customers = res;
-        console.log(this.customers);
-        return this.customers;
+    return this.http.get<Customer[]>(ruta, { headers: httpHeaders})
+    .pipe(
+      map((response) => {
+          this.customers = response;
+          console.log(this.customers);
+          return this.customers;
       })
     )
   }

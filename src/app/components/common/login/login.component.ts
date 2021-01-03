@@ -14,6 +14,7 @@ import { promise } from 'protractor';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
+
 export class LoginComponent implements OnInit {
   loginForm = new FormGroup({
     username: new FormControl(),
@@ -49,26 +50,8 @@ export class LoginComponent implements OnInit {
         })
   }
 
-  evaluarRespuesta(res: HttpResponse<Auth>) {
-
-
-    /*
-    if(res == "-1"){
-      alert("El usuario no existe");
-    }else if(res == "-2"){
-      alert("La contraseña es incorrecta");
-    }else{
-      alert("Bienvenido");
-      localStorage.setItem("usuario_activo",res);
-      //this.router.navigate(['/empleados']);
-      window.location.href = "/booksdb";
-    }
-    */
-  }
-
   cerrarSesion() {
     this.loginService.logout();
-    //this.router.navigate(['/']);
     window.location.href = "/";
   }
 }
