@@ -83,8 +83,15 @@
               <td>{{order.OrderId_uuid}}</td>
               <td>{{order.DatePlaced}}</td>
               <td>{{order.Notes}}</td>
-              <td>{{order.Delivered}}</td>
-              <td>{{order.Paid}}</td>
+
+              <div *ngIf="order.Delivered == 1; then yes; else no"></div>
+              <ng-template #yes><td class="green-text">Yes</td></ng-template>
+              <ng-template #no><td class="red-text">No</td></ng-template>
+
+              <div *ngIf="order.Paid == 1; then yes; else no"></div>
+              <ng-template #yes><td class="green-text">Yes</td></ng-template>
+              <ng-template #no><td class="red-text">No</td></ng-template>
+
               <td>
                 <fa-icon [icon]="faEdit" (click)="seleccionar(order)"></fa-icon>
               </td>

@@ -1,10 +1,5 @@
 /* You can add global styles to this file, and also import other style files */
 
-
-
-
-
-
 /*////////////////////////////////////////////////////////////////////////////////////////////////////
 
     Themes Bootstrap - Smart Agency Template v1.0.0 (https://themesbootstrap.com.mx/templates/smart-agenct-template.html)
@@ -25,25 +20,63 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-
 html {
   scroll-behavior: smooth;
 }
 
-body {
-  font-family: 'Titillium Web', sans-serif;
+
+
+/* My styles */
+
+
+.red-text{
+  color: #dc3545;
 }
 
-.bgDark { background-color: var(--dark-color); }
-.bgLight { background-color: var(--white-color); }
-.bgLightGrey { background-color: var(--light-grey-color); }
+.green-text{
+  color: #28a745;
+}
 
-.colorDark { color: var(--dark-color) !important; }
 
-h1 { font-size: 66px; font-weight: 700; line-height: 80px; }
-h2 { font-size: 48px; margin-bottom: 30px; }
-h3 { font-size: 33px; }
-h5 { margin-bottom: 0px; }
+/*My Styles end */
+
+
+
+
+.bgDark {
+  background-color: var(--dark-color);
+}
+
+.bgLight {
+  background-color: var(--white-color);
+}
+
+.bgLightGrey {
+  background-color: var(--light-grey-color);
+}
+
+.colorDark {
+  color: var(--dark-color) !important;
+}
+
+h1 {
+  font-size: 66px;
+  font-weight: 700;
+  line-height: 80px;
+}
+
+h2 {
+  font-size: 48px;
+  margin-bottom: 30px;
+}
+
+h3 {
+  font-size: 33px;
+}
+
+h5 {
+  margin-bottom: 0px;
+}
 
 .mt-6 {
   margin-top: 200px;
@@ -52,12 +85,14 @@ h5 { margin-bottom: 0px; }
 p {
   font-size: 18px;
   color: var(--dark-color);
-  opacity: .5;
+  opacity: 0.5;
   line-height: 1.8;
   margin-bottom: 0px;
 }
 
-a:hover { text-decoration: none; }
+a:hover {
+  text-decoration: none;
+}
 
 .btn {
   font-size: 14px;
@@ -85,18 +120,36 @@ a:hover { text-decoration: none; }
   border: 2px solid var(--white-color);
 }
 
-.btn-primary:hover { background-color: var(--dark-color); border: 2px solid var(--dark-color); }
-.btn-secondary:hover { background-color: var(--white-color); color: var(--dark-color); border: 2px solid var(--white-color); }
-.btn-secondary:focus { background-color: var(--white-color) !important; outline: none; border: 2px solid var(--white-color) !important; box-shadow: none; }
+.btn-primary:hover {
+  background-color: var(--dark-color);
+  border: 2px solid var(--dark-color);
+}
+
+.btn-secondary:hover {
+  background-color: var(--white-color);
+  color: var(--dark-color);
+  border: 2px solid var(--white-color);
+}
+
+.btn-secondary:focus {
+  background-color: var(--white-color) !important;
+  outline: none;
+  border: 2px solid var(--white-color) !important;
+  box-shadow: none;
+}
 
 .logo-brand {
   max-width: 180px;
   min-width: 160px;
 }
 
-section { padding: 60px 0; }
+section {
+  padding: 60px 0;
+}
 
-.divider { border-bottom: 2px solid var(--light-grey-color); }
+.divider {
+  border-bottom: 2px solid var(--light-grey-color);
+}
 
 .content-center {
   max-width: 800px;
@@ -123,15 +176,23 @@ section { padding: 60px 0; }
 
 .navbar {
   background-color: var(--white-color);
-  box-shadow: 0 2px 4px 0 rgba(0,0,0,.05);
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.05);
   min-height: 100px;
 }
 
-.nav-link { color: var(--dark-color); }
-.nav-link:hover { color: var(--dark-color); }
+.nav-link {
+  color: var(--dark-color);
+}
+.nav-link:hover {
+  color: var(--dark-color);
+}
 
-.navbar-toggler { font-size: 40px; }
-.navbar-toggler:focus { outline: none; }
+.navbar-toggler {
+  font-size: 40px;
+}
+.navbar-toggler:focus {
+  outline: none;
+}
 
 /* //////////////
  Hero
@@ -148,7 +209,6 @@ section { padding: 60px 0; }
 #hero p {
   color: var(--white-color);
 }
-
 
 /* //////////////
  Footer
@@ -172,9 +232,9 @@ footer .list-inline .list-inline-item {
   padding: 10px 15px;
 }
 
-#tabla-listar,#tabla-crear {
+#tabla-listar,
+#tabla-crear {
   display: none;
-
 }
 
 /* //////////////
@@ -182,26 +242,43 @@ footer .list-inline .list-inline-item {
 //////////////*/
 
 @media (max-width: 575.98px) {
-  h1 { font-size: 40px; line-height: normal; }
-  .portfolio-details h2 { font-size: 32px; }
-  .plans { min-width: unset; padding: 40px; }
-  .carousel-item p { font-size: 20px; }
+  h1 {
+    font-size: 40px;
+    line-height: normal;
+  }
+  .portfolio-details h2 {
+    font-size: 32px;
+  }
+  .plans {
+    min-width: unset;
+    padding: 40px;
+  }
+  .carousel-item p {
+    font-size: 20px;
+  }
 
   .footer-menu {
-      display: block !important;
-      padding: 20px 0 !important;
-      font-size: 20px;
-
+    display: block !important;
+    padding: 20px 0 !important;
+    font-size: 20px;
   }
 }
 
-@media (min-width: 576px) and (max-width: 767.98px) { }
-
-@media (min-width: 768px) and (max-width: 991.98px) {
-  .portfolio-details h2 { font-size: 30px; }
-  .plans { min-width: unset; padding: 40px 20px;}
+@media (min-width: 576px) and (max-width: 767.98px) {
 }
 
-@media (min-width: 992px) and (max-width: 1199.98px) { }
+@media (min-width: 768px) and (max-width: 991.98px) {
+  .portfolio-details h2 {
+    font-size: 30px;
+  }
+  .plans {
+    min-width: unset;
+    padding: 40px 20px;
+  }
+}
 
-@media (min-width: 1200px) { }
+@media (min-width: 992px) and (max-width: 1199.98px) {
+}
+
+@media (min-width: 1200px) {
+}
