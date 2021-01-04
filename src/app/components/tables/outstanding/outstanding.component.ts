@@ -1,7 +1,7 @@
-import { OrderDetail } from './../../../entities/orderdetail';
+import { chOrderDetail } from '../../../entities/ch_orderdetail';
 import { OrderdetailsService } from './../../../services/orderdetails.service';
 import { OrdersService } from './../../../services/orders.service';
-import { Order } from './../../../entities/order';
+import { chOrder } from '../../../entities/ch_order';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import {faEdit, faTimes, faInfo} from '@fortawesome/free-solid-svg-icons';
@@ -14,11 +14,11 @@ declare var $: any;
   styleUrls: ['./outstanding.component.css']
 })
 export class OutstandingComponent implements OnInit {
-  orders: Order[];
+  orders: chOrder[];
   newOrder: any;
-  orderUpdated: Order;
+  orderUpdated: chOrder;
 
-  orderdetails: OrderDetail[];
+  orderdetails: chOrderDetail[];
 
 
   faEdit = faEdit;
@@ -32,7 +32,7 @@ export class OutstandingComponent implements OnInit {
 
   getOutstanding(): void {
     this.order_svc.getOutstanding().subscribe(
-      (res: Order[]) => {
+      (res: chOrder[]) => {
         this.orders = res;
       }
     );
@@ -41,7 +41,7 @@ export class OutstandingComponent implements OnInit {
 
   getDetails(orderid): void {
     this.details_svc.getDetails(orderid).subscribe(
-      (res: OrderDetail[]) => {
+      (res: chOrderDetail[]) => {
         this.orderdetails = res;
       }
     );

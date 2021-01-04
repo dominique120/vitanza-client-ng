@@ -1,4 +1,4 @@
-export class OrderDetail{
+export class chOrderDetail{
   OrderDetailId_uuid: string;
   OrderId_uuid: string;
   Product: string;

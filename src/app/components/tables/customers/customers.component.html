@@ -48,6 +48,19 @@
           </div>
 
           <div class="form-group">
+            <input type="text" name="" id="Notes" class="form-control" placeholder="Notes"
+            formControlName="Notes">
+          </div>
+
+          <select formControlName="Intrest" id="Intrest" class="form-control" placeholder="Intrest">
+            <option *ngFor="let options of interstOptions">{{options}}</option>
+          </select>
+
+          <select formControlName="Active" id="Active" class="form-control" placeholder="Active">
+            <option *ngFor="let options of activeOptions">{{options}}</option>
+          </select>
+
+          <div class="form-group">
             <button class="btn btn-primary" style="background-color: #333; margin-right: 10px;"
               type="submit">Add</button>
             <button class="btn btn-secondary" type="button" (click)="cerrarFormularioAgregar()">Close</button>
@@ -57,12 +70,10 @@
 
 
 
-
-
-
-
-
-
+      <div class="form-group">
+        <input type="text" class="form-control"
+        [(ngModel)]="customerFilter.LastNames" placeholder="Search by last names">
+      </div>
 
 
 <div class="p-4"></div>
@@ -70,35 +81,40 @@
           <thead>
             <tr>
               <th>Name</th>
-              <th>Last Names</th>
-              <th>District</th>
-              <th>Primary Address</th>
-              <th>Secondary Address</th>
+              <th (click)="setOrder('LastNames')"
+              [class.active]="customerOrder==='LastNames'">
+              Last Names
+              <span [hidden]="reverse"><fa-icon [icon]="faChevronUp"></fa-icon></span>
+              <span [hidden]="!reverse"><fa-icon [icon]="faChevronUp"></fa-icon></span>
+            </th>
               <th>Primary Phone</th>
-              <th>Secondary Phone</th>
+              <th>District</th>
               <th></th>
               <th></th>
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let cust of customers">
+            <tr *ngFor="let cust of customers
+            | filterBy: customerFilter
+            | orderBy: customerOrder : reverse
+            | paginate: { itemsPerPage: 30, currentPage: pageNumber }
+            ">
               <td>{{cust.FirstName}}</td>
               <td>{{cust.LastNames}}</td>
-              <td>{{cust.District}}</td>
-              <td>{{cust.PrimaryAddress}}</td>
-              <td>{{cust.SecondaryAddress}}</td>
               <td>{{cust.PrimaryPhone}}</td>
-              <td>{{cust.SecondaryPhone}}</td>
+              <td>{{cust.District}}</td>
               <td>
                 <fa-icon [icon]="faEdit" (click)="seleccionar(cust)"></fa-icon>
               </td>
               <td>
-                <fa-icon [icon]="faTimes" (click)="eliminar(cust)"></fa-icon>
+                <fa-icon [icon]="faTimes" (click)="deactivate(cust)"></fa-icon>
               </td>
              </tr>
           </tbody>
         </table>
-
+        <pagination-controls (pageChange)="pageNumber = $event"
+        previousLabel="Previous"
+        nextLabel="Next"></pagination-controls>
       </div>
 
     </div>
@@ -126,22 +142,10 @@
         *ngIf="customerUpdated">
         <div class="modal-body">
 
-
           <div class="form-group">
             <input type="text" name="" id="ClientId_uuid" class="form-control" placeholder="ClientId_uuid" formControlName="ClientId_uuid"
               required readonly [(ngModel)]="customerUpdated.ClientId_uuid">
           </div>
-
-                <!--
-    ClientId_uuid: String;
-    FirstName: String;
-    PrimaryAddress: String;
-    PrimaryPhone: String;
-    SecondaryAddress: String;
-    SecondaryPhone: String;
-    District: String;
-    LastNames: String;
-      -->
 
           <div class="form-group">
             <input type="text" name="" id="FirstName" class="form-control" placeholder="FirstName" formControlName="FirstName"
@@ -178,6 +182,22 @@
             [(ngModel)]="customerUpdated.District">
           </div>
 
+          <div class="form-group">
+            <input type="text" name="" id="Notes" class="form-control" placeholder="Notes"
+            formControlName="Notes" [(ngModel)]="customerUpdated.Notes">
+          </div>
+
+          <div class="form-group">
+            <select formControlName="Intrest" id="Intrest" class="form-control" placeholder="Intrest" [(ngModel)]="customerUpdated.Intrest">
+              <option *ngFor="let options of interstOptions">{{options}}</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <select formControlName="Active" id="Active" class="form-control" placeholder="Active" [(ngModel)]="customerUpdated.Active">
+              <option *ngFor="let options of activeOptions">{{options}}</option>
+            </select>
+          </div>
 
         </div>
         <div class="modal-footer">

@@ -21,6 +21,13 @@ import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { OutstandingComponent } from './components/tables/outstanding/outstanding.component';
+
+import { FilterPipeModule } from 'ngx-filter-pipe';
+import { OrderModule } from 'ngx-order-pipe';
+import { NgxPaginationModule } from 'ngx-pagination';
+import { NgxPrintModule } from 'ngx-print';
+
+
 import { AuthorizationInterceptor } from './interceptors/authorization-interceptor.interceptor';
 
 @NgModule({
@@ -44,6 +51,10 @@ import { AuthorizationInterceptor } from './interceptors/authorization-intercept
     FontAwesomeModule,
     ReactiveFormsModule,
     HttpClientModule,
+    NgxPaginationModule,
+    NgxPrintModule,
+    FilterPipeModule,
+    OrderModule,
     BrowserModule,
     BsDropdownModule.forRoot(),
     TooltipModule.forRoot(),

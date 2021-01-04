@@ -7,4 +7,7 @@ export class Customer{
   SecondaryPhone: string;
   District: string;
   LastNames: string;
+  Intrest: string;
+  Notes: string;
+  Active: number;
 }

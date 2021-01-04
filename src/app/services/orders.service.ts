@@ -1,4 +1,4 @@
-import { Order } from '../entities/order';
+import { chOrder } from '../entities/ch_order';
 import { Constants } from '../entities/Constants';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
@@ -10,17 +10,17 @@ import { map } from 'rxjs/operators';
 })
 export class OrdersService {
 
-  orders: Order[];
+  orders: chOrder[];
   constructor(private http: HttpClient) { }
 
 
-  selectOrders(): Observable<Order[]> {
+  selectOrders(): Observable<chOrder[]> {
     const httpHeaders: HttpHeaders = new HttpHeaders({
       Authorization: 'Bearer ' + localStorage.getItem("jwt")
     });
 
     const ruta = Constants.orderUrl;
-    return this.http.get<Order[]>(ruta, { headers: httpHeaders }).pipe(
+    return this.http.get<chOrder[]>(ruta, { headers: httpHeaders }).pipe(
       map((res) => {
         this.orders = res;
         console.log(this.orders);
@@ -30,13 +30,13 @@ export class OrdersService {
   }
 
 
-  getOutstanding(): Observable<Order[]> {
+  getOutstanding(): Observable<chOrder[]> {
     const httpHeaders: HttpHeaders = new HttpHeaders({
       Authorization: 'Bearer ' + localStorage.getItem("jwt")
     });
 
     const ruta = Constants.outstandingOrdersUrl;
-    return this.http.get<Order[]>(ruta, { headers: httpHeaders }).pipe(
+    return this.http.get<chOrder[]>(ruta, { headers: httpHeaders }).pipe(
       map((res) => {
         this.orders = res;
         console.log(this.orders);

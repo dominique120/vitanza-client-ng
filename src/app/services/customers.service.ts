@@ -83,4 +83,14 @@ export class CustomersService {
 
     return this.http.delete(ruta, { headers: httpHeaders});
   }
+
+  deactivateCustomer(customer_id) {
+    const ruta = Constants.deactivateCustomerWithId(customer_id);
+
+    const httpHeaders: HttpHeaders = new HttpHeaders({
+      Authorization: 'Bearer ' + localStorage.getItem("jwt")
+    });
+
+    return this.http.post(ruta, { headers: httpHeaders});
+  }
 }

@@ -1,4 +1,4 @@
-export class Product{
+export class chProduct{
   ProductId_uuid: string;
   ProductName: string;
   ProductDescription: string;

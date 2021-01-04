@@ -7,6 +7,9 @@ export class Constants {
   public static customerWithId(customer_id: string){
     return Constants.base_url_port + "/customers?id=" + customer_id;
   }
+  public static deactivateCustomerWithId(customer_id: string){
+    return Constants.base_url_port + "/customers/deactivate?id=" + customer_id;
+  }
 
   // Auth
   public static authUrl: string = Constants.base_url_port + "/auth";

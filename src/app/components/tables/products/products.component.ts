@@ -1,5 +1,5 @@
 import { ProductsService } from './../../../services/products.service';
-import { Product } from './../../../entities/product';
+import { chProduct } from '../../../entities/ch_product';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import {faEdit, faTimes} from '@fortawesome/free-solid-svg-icons';
@@ -12,9 +12,9 @@ declare var $: any;
   styleUrls: ['./products.component.css']
 })
 export class ProductsComponent implements OnInit {
-  products: Product[];
+  products: chProduct[];
   newProduct: any;
-  productUpdated: Product;
+  productUpdated: chProduct;
 
 
   faEdit = faEdit;
@@ -34,7 +34,7 @@ export class ProductsComponent implements OnInit {
 
   getProducts(): void {
     this.product_svc.selectProducts().subscribe(
-      (res: Product[]) => {
+      (res: chProduct[]) => {
         this.products = res;
       }
     );
@@ -42,13 +42,13 @@ export class ProductsComponent implements OnInit {
 
 
 
-  seleccionar(itemProduct: Product){
+  seleccionar(itemProduct: chProduct){
     console.log(itemProduct);
     this.productUpdated = itemProduct;
     $("#formularioActualizar").modal('show');
   }
 
-  eliminar(itemProduct: Product){
+  eliminar(itemProduct: chProduct){
     var respuesta = confirm("Delete " + itemProduct.ProductId_uuid + "?");
     if (respuesta == true) {
       this.product_svc.deleteProducts(itemProduct.ProductId_uuid).subscribe();

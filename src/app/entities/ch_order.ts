@@ -1,4 +1,4 @@
-export class Order{
+export class chOrder{
   OrderId_uuid: string;
   DatePlaced: string;
   ClientId_uuid: string;
