@@ -1,6 +1,6 @@
 export class Constants {
   //private static base_url_port: string = "https://cors-anywhere.herokuapp.com/http://vts-alb-316342429.us-east-1.elb.amazonaws.com:80/vts/api/v1";
-  private static base_url_port: string = "http://127.0.0.1:80/vts/api/v1";
+  private static base_url_port: string = "http://192.168.1.72:80/vts/api/v1";
 
   // Customers
   public static customerUrl: string = Constants.base_url_port + "/customers";

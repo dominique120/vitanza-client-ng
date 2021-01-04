@@ -126,8 +126,6 @@
 
 
 
-
-
 <div class="modal fade" id="formularioActualizar" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -143,57 +141,68 @@
         <div class="modal-body">
 
           <div class="form-group">
+            <label for="ClientId_uuid">Id:</label>
             <input type="text" name="" id="ClientId_uuid" class="form-control" placeholder="ClientId_uuid" formControlName="ClientId_uuid"
               required readonly [(ngModel)]="customerUpdated.ClientId_uuid">
           </div>
 
           <div class="form-group">
+            <label for="FirstName">Name:</label>
             <input type="text" name="" id="FirstName" class="form-control" placeholder="FirstName" formControlName="FirstName"
             [(ngModel)]="customerUpdated.FirstName">
           </div>
 
           <div class="form-group">
+            <label for="LastNames">Last Name:</label>
             <input type="text" name="" id="LastNames" class="form-control" placeholder="LastNames" formControlName="LastNames"
             [(ngModel)]="customerUpdated.LastNames">
           </div>
 
           <div class="form-group">
+            <label for="PrimaryAddress">Primary Address:</label>
             <input type="text" name="" id="PrimaryAddress" class="form-control" placeholder="PrimaryAddress"
               formControlName="PrimaryAddress" [(ngModel)]="customerUpdated.PrimaryAddress">
           </div>
 
           <div class="form-group">
+            <label for="PrimaryPhone">Primary Phone:</label>
             <input type="text" name="" id="PrimaryPhone" class="form-control" placeholder="PrimaryPhone" formControlName="PrimaryPhone"
             [(ngModel)]="customerUpdated.PrimaryPhone">
           </div>
 
           <div class="form-group">
+            <label for="SecondaryAddress">Secondary Address:</label>
             <input type="text" name="" id="SecondaryAddress" class="form-control" placeholder="SecondaryAddress" formControlName="SecondaryAddress"
             [(ngModel)]="customerUpdated.SecondaryAddress">
           </div>
 
           <div class="form-group">
+            <label for="SecondaryPhone">Secondary Phone:</label>
             <input type="text" name="" id="SecondaryPhone" class="form-control" placeholder="SecondaryPhone"
               formControlName="SecondaryPhone" [(ngModel)]="customerUpdated.SecondaryPhone">
           </div>
 
           <div class="form-group">
+            <label for="District">District:</label>
             <input type="text" name="" id="District" class="form-control" placeholder="District" formControlName="District"
             [(ngModel)]="customerUpdated.District">
           </div>
 
           <div class="form-group">
+            <label for="Notes">Notes:</label>
             <input type="text" name="" id="Notes" class="form-control" placeholder="Notes"
             formControlName="Notes" [(ngModel)]="customerUpdated.Notes">
           </div>
 
           <div class="form-group">
+            <label for="Intrest">Intrest:</label>
             <select formControlName="Intrest" id="Intrest" class="form-control" placeholder="Intrest" [(ngModel)]="customerUpdated.Intrest">
               <option *ngFor="let options of interstOptions">{{options}}</option>
             </select>
           </div>
 
           <div class="form-group">
+            <label for="Active">Active:</label>
             <select formControlName="Active" id="Active" class="form-control" placeholder="Active" [(ngModel)]="customerUpdated.Active">
               <option *ngFor="let options of activeOptions">{{options}}</option>
             </select>
