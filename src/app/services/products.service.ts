@@ -1,4 +1,4 @@
-import { chProduct } from '../entities/product';
+import { Product } from '../entities/product';
 import { Constants } from '../entities/Constants';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
@@ -10,16 +10,16 @@ import { map } from 'rxjs/operators';
 })
 export class ProductsService {
 
-  products: chProduct[];
+  products: Product[];
   constructor(private http: HttpClient) { }
 
-  selectProducts(): Observable<chProduct[]> {
+  selectProducts(): Observable<Product[]> {
     const httpHeaders: HttpHeaders = new HttpHeaders({
       Authorization: 'Bearer ' + localStorage.getItem("jwt")
     });
 
     const ruta = Constants.productUrl;
-    return this.http.get<chProduct[]>(ruta, { headers: httpHeaders }).pipe(
+    return this.http.get<Product[]>(ruta, { headers: httpHeaders }).pipe(
       map((res) => {
         this.products = res;
         console.log(this.products);

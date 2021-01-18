@@ -20,15 +20,18 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { ModalModule } from 'ngx-bootstrap/modal';
-import { OutstandingComponent } from './components/main/outstanding/outstanding.component';
 
 import { FilterPipeModule } from 'ngx-filter-pipe';
 import { OrderModule } from 'ngx-order-pipe';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { NgxPrintModule } from 'ngx-print';
 
-
 import { AuthorizationInterceptor } from './interceptors/authorization-interceptor.interceptor';
+
+import { PendingChangesComponent } from './components/main/pending-changes/pending-changes.component';
+import { UpcomingChangesComponent } from './components/main/upcoming-changes/upcoming-changes.component';
+import { OpenNotesComponent } from './components/main/open-notes/open-notes.component';
+import { OutstandingComponent } from './components/main/outstanding/outstanding.component';
 
 @NgModule({
   declarations: [
@@ -43,6 +46,9 @@ import { AuthorizationInterceptor } from './interceptors/authorization-intercept
     FooterComponent,
     MainComponent,
     OutstandingComponent,
+    PendingChangesComponent,
+    UpcomingChangesComponent,
+    OpenNotesComponent,
   ],
   imports: [
     BrowserModule,

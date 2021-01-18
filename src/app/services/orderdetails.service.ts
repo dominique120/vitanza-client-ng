@@ -1,4 +1,4 @@
-import { chOrderDetail } from '../entities/orderdetail';
+import { OrderDetail } from '../entities/orderdetail';
 import { Constants } from '../entities/Constants';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
@@ -10,17 +10,17 @@ import { map } from 'rxjs/operators';
 })
 export class OrderdetailsService {
 
-  orderDetails: chOrderDetail[];
+  orderDetails: OrderDetail[];
   constructor(private http: HttpClient) { }
 
 
-  getDetails(order_id): Observable<chOrderDetail[]> {
+  getDetails(order_id): Observable<OrderDetail[]> {
     const httpHeaders: HttpHeaders = new HttpHeaders({
       Authorization: 'Bearer ' + localStorage.getItem("jwt")
     });
 
     const ruta = Constants.ordeDetailWithOrderId(order_id);
-    return this.http.get<chOrderDetail[]>(ruta, { headers: httpHeaders }).pipe(
+    return this.http.get<OrderDetail[]>(ruta, { headers: httpHeaders }).pipe(
       map((res) => {
         this.orderDetails = res;
         console.log(this.orderDetails);

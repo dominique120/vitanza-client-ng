@@ -1,8 +1,8 @@
 import { OrdersService } from './../../../services/orders.service';
-import { chOrder } from '../../../entities/order';
+import { Order } from '../../../entities/order';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import {faEdit, faTimes} from '@fortawesome/free-solid-svg-icons';
+import { faEdit, faTimes } from '@fortawesome/free-solid-svg-icons';
 
 declare var $: any;
 
@@ -12,9 +12,9 @@ declare var $: any;
   styleUrls: ['./orders.component.css']
 })
 export class OrdersComponent implements OnInit {
-  orders: chOrder[];
+  orders: Order[];
   newOrder: any;
-  orderUpdated: chOrder;
+  orderUpdated: Order;
 
 
   faEdit = faEdit;
@@ -58,7 +58,7 @@ export class OrdersComponent implements OnInit {
 
   getOrders(): void {
     this.order_svc.selectOrders().subscribe(
-      (res: chOrder[]) => {
+      (res: Order[]) => {
         this.orders = res;
       }
     );
@@ -66,13 +66,13 @@ export class OrdersComponent implements OnInit {
 
 
 
-  seleccionar(itemOrder: chOrder){
+  seleccionar(itemOrder: Order){
     console.log(itemOrder);
     this.orderUpdated = itemOrder;
     $("#formularioActualizar").modal('show');
   }
 
-  eliminar(itemOrder:chOrder){
+  eliminar(itemOrder:Order){
     var respuesta = confirm("Delete " + itemOrder.OrderId_uuid + "?");
     if (respuesta == true) {
       this.order_svc.deleteOrder(itemOrder.OrderId_uuid).subscribe();

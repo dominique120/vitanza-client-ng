@@ -67,7 +67,7 @@ export class CustomersService {
       Authorization: 'Bearer ' + localStorage.getItem("jwt")
     });
 
-    const ruta = Constants.customerWithId(customer.ClientId_uuid);
+    const ruta = Constants.customerWithId(customer.PK);
 
     let reqbody = JSON.stringify(customer);
 
