@@ -1,4 +1,4 @@
-import { chOrder } from '../entities/ch_order';
+import { chOrder } from '../entities/order';
 import { Constants } from '../entities/Constants';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';

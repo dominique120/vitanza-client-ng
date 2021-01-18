@@ -1,5 +1,5 @@
 import { OrdersService } from './../../../services/orders.service';
-import { chOrder } from '../../../entities/ch_order';
+import { chOrder } from '../../../entities/order';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import {faEdit, faTimes} from '@fortawesome/free-solid-svg-icons';

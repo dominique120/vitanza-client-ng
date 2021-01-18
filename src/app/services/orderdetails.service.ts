@@ -1,4 +1,4 @@
-import { chOrderDetail } from '../entities/ch_orderdetail';
+import { chOrderDetail } from '../entities/orderdetail';
 import { Constants } from '../entities/Constants';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';

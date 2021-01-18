@@ -1,4 +1,4 @@
-import { OutstandingComponent } from './components/tables/outstanding/outstanding.component';
+import { OutstandingComponent } from './components/main/outstanding/outstanding.component';
 import { UsersComponent } from './components/users/users.component';
 import { ProductsComponent } from './components/tables/products/products.component';
 import { OrdersComponent } from './components/tables/orders/orders.component';

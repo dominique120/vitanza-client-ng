@@ -1,5 +1,5 @@
 import { ProductsService } from './../../../services/products.service';
-import { chProduct } from '../../../entities/ch_product';
+import { Product } from '../../../entities/product';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import {faEdit, faTimes} from '@fortawesome/free-solid-svg-icons';
@@ -12,9 +12,9 @@ declare var $: any;
   styleUrls: ['./products.component.css']
 })
 export class ProductsComponent implements OnInit {
-  products: chProduct[];
+  products: Product[];
   newProduct: any;
-  productUpdated: chProduct;
+  productUpdated: Product;
 
 
   faEdit = faEdit;
@@ -34,7 +34,7 @@ export class ProductsComponent implements OnInit {
 
   getProducts(): void {
     this.product_svc.selectProducts().subscribe(
-      (res: chProduct[]) => {
+      (res: Product[]) => {
         this.products = res;
       }
     );
@@ -42,18 +42,18 @@ export class ProductsComponent implements OnInit {
 
 
 
-  seleccionar(itemProduct: chProduct){
+  seleccionar(itemProduct: Product){
     console.log(itemProduct);
     this.productUpdated = itemProduct;
     $("#formularioActualizar").modal('show');
   }
 
-  eliminar(itemProduct: chProduct){
-    var respuesta = confirm("Delete " + itemProduct.ProductId_uuid + "?");
+  eliminar(itemProduct: Product){
+    var respuesta = confirm("Delete " + itemProduct.PK + "?");
     if (respuesta == true) {
-      this.product_svc.deleteProducts(itemProduct.ProductId_uuid).subscribe();
-      this.products = this.products.filter(item => item.ProductId_uuid !== itemProduct.ProductId_uuid);
-      alert("Se ha eliminado: "  + itemProduct.ProductId_uuid );
+      this.product_svc.deleteProducts(itemProduct.PK).subscribe();
+      this.products = this.products.filter(item => item.PK !== itemProduct.PK);
+      alert("Se ha eliminado: "  + itemProduct.PK );
     }
   }
 

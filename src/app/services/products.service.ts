@@ -1,4 +1,4 @@
-import { chProduct } from '../entities/ch_product';
+import { chProduct } from '../entities/product';
 import { Constants } from '../entities/Constants';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
