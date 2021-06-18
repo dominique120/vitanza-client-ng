@@ -34,13 +34,12 @@ export class CustomersComponent implements OnInit {
   faTimes = faTimes;
 
   customerAgregarForm = new FormGroup({
-    FirstName: new FormControl(),
+    FullName: new FormControl(),
     PrimaryAddress: new FormControl(),
     PrimaryPhone: new FormControl(),
     SecondaryAddress: new FormControl(),
     SecondaryPhone: new FormControl(),
     District: new FormControl(),
-    LastNames: new FormControl(),
     Intrest: new FormControl(),
     Notes: new FormControl(),
     Active: new FormControl()
@@ -48,13 +47,12 @@ export class CustomersComponent implements OnInit {
 
   customerActualizarForm = new FormGroup({
     ClientId_uuid: new FormControl(),
-    FirstName: new FormControl(),
+    FullName: new FormControl(),
     PrimaryAddress: new FormControl(),
     PrimaryPhone: new FormControl(),
     SecondaryAddress: new FormControl(),
     SecondaryPhone: new FormControl(),
     District: new FormControl(),
-    LastNames: new FormControl(),
     Intrest: new FormControl(),
     Notes: new FormControl(),
     Active: new FormControl()
@@ -86,16 +84,15 @@ export class CustomersComponent implements OnInit {
 
     let c: Customer = new Customer();
 
-    c.FirstName = values.FirstName;
-    c.PrimaryAddress = values.PrimaryAddress;
-    c.PrimaryPhone = values.PrimaryPhone;
-    c.SecondaryAddress = values.SecondaryAddress;
-    c.SecondaryPhone = values.SecondaryPhone;
-    c.District = values.District;
-    c.LastNames = values.LastNames;
+    c.GSI1PK = values.FullName;
+    c.Address1 = values.PrimaryAddress;
+    c.Phone1 = values.PrimaryPhone;
+    c.Address2 = values.SecondaryAddress;
+    c.Phone2 = values.SecondaryPhone;
+    c.GSI1SK = values.District;
     c.Notes = values.Notes;
     c.Intrest = values.Intrest;
-    c.Active = values.Active;
+    c.GSI2PK = values.Active;
 
     this.cust_svc.insertCustomer(c).subscribe(
       (res) => {
@@ -128,20 +125,20 @@ export class CustomersComponent implements OnInit {
   }
 
   eliminar(itemCustomer:Customer){
-    var respuesta = confirm("Are you sure you wish to delete " + itemCustomer.FirstName + " " + itemCustomer.LastNames + " (This will remove all asociated information)?");
+    var respuesta = confirm("Are you sure you wish to delete " + itemCustomer.GSI1PK + " (This will remove all asociated information)?");
     if (respuesta == true) {
-      this.cust_svc.deleteCustomer(itemCustomer.ClientId_uuid).subscribe();
-      this.customers = this.customers.filter(item => item.ClientId_uuid !== itemCustomer.ClientId_uuid);
-      alert("You have removed: "  + itemCustomer.FirstName + " " + itemCustomer.LastNames + " from the registry.");
+      this.cust_svc.deleteCustomer(itemCustomer.PK).subscribe();
+      this.customers = this.customers.filter(item => item.PK !== itemCustomer.PK);
+      alert("You have removed: "  + itemCustomer.GSI1PK + " " + itemCustomer.GSI1PK + " from the registry.");
     }
   }
 
   deactivate(itemCustomer:Customer){
-    var respuesta = confirm("Are you sure you wish to deactivate " + itemCustomer.FirstName + " " + itemCustomer.LastNames + "?");
+    var respuesta = confirm("Are you sure you wish to deactivate " + itemCustomer.GSI1PK + "?");
     if (respuesta == true) {
-      this.cust_svc.deactivateCustomer(itemCustomer.ClientId_uuid).subscribe();
-      this.customers = this.customers.filter(item => item.ClientId_uuid !== itemCustomer.ClientId_uuid);
-      alert(itemCustomer.FirstName + " " + itemCustomer.LastNames + " has been de-activated.");
+      this.cust_svc.deactivateCustomer(itemCustomer.PK).subscribe();
+      this.customers = this.customers.filter(item => item.PK !== itemCustomer.PK);
+      alert(itemCustomer.GSI1PK + " has been de-activated.");
     }
   }
 
@@ -150,21 +147,21 @@ export class CustomersComponent implements OnInit {
 
     let c: Customer = new Customer();
 
-    c.ClientId_uuid = values.ClientId_uuid;
-    c.FirstName = values.FirstName;
-    c.PrimaryAddress = values.PrimaryAddress;
-    c.PrimaryPhone = values.PrimaryPhone;
-    c.SecondaryAddress = values.SecondaryAddress;
-    c.SecondaryPhone = values.SecondaryPhone;
-    c.District = values.District;
-    c.LastNames = values.LastNames;
+    c.PK = values.ClientId_uuid;
+    c.SK = values.ClientId_uuid;
+    c.GSI1PK = values.FirstName;
+    c.Address1 = values.PrimaryAddress;
+    c.Phone1 = values.PrimaryPhone;
+    c.Address2 = values.SecondaryAddress;
+    c.Phone2 = values.SecondaryPhone;
+    c.GSI1SK = values.District;
     c.Intrest = values.Intrest;
     c.Notes = values.Notes;
-    c.Active = values.Active;
+    c.GSI2PK = values.Active;
 
 
     this.cust_svc.updateCustomer(c).subscribe();
-      alert("Updated: " + c.FirstName + " " + c.LastNames);
+      alert("Updated: " + c.GSI1PK);
       $('#formulario-actualizar').modal('hide');
   }
 

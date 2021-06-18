@@ -64,8 +64,6 @@ export class OrdersComponent implements OnInit {
     );
   }
 
-
-
   seleccionar(itemOrder: Order){
     console.log(itemOrder);
     this.orderUpdated = itemOrder;
@@ -73,11 +71,11 @@ export class OrdersComponent implements OnInit {
   }
 
   eliminar(itemOrder:Order){
-    var respuesta = confirm("Delete " + itemOrder.OrderId_uuid + "?");
+    var respuesta = confirm("Delete " + itemOrder.PK + "?");
     if (respuesta == true) {
-      this.order_svc.deleteOrder(itemOrder.OrderId_uuid).subscribe();
-      this.orders = this.orders.filter(item => item.OrderId_uuid !== itemOrder.OrderId_uuid);
-      alert("Se ha eliminado: "  + itemOrder.OrderId_uuid );
+      this.order_svc.deleteOrder(itemOrder.PK).subscribe();
+      this.orders = this.orders.filter(item => item.PK !== itemOrder.PK);
+      alert("Se ha eliminado: "  + itemOrder.PK );
     }
   }
 
