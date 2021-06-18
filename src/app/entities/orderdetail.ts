@@ -1,3 +1,5 @@
+import { Product } from "./product";
+
 export class OrderDetail{
   PK: string; //orderId
   SK: string; // orderDetailID
@@ -6,4 +8,5 @@ export class OrderDetail{
   oPrice: number;
   Name: string;
 
+  product:Product;
 }

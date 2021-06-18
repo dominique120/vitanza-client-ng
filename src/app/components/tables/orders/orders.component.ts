@@ -57,7 +57,7 @@ export class OrdersComponent implements OnInit {
   }
 
   getOrders(): void {
-    this.order_svc.selectOrders().subscribe(
+    this.order_svc.getOrderByStatus("Closed").subscribe(
       (res: Order[]) => {
         this.orders = res;
       }

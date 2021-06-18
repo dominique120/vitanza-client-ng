@@ -5,17 +5,19 @@ import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Observable, pipe, of } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
 import { LoginService } from './login.service'
+import { v3Api } from '../entities/v3api';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CustomersService {
   customers: Customer[];
+  customer: Customer;
   constructor(private http: HttpClient) { }
 
   selectCustomers(): Observable<Customer[]> {
     const httpHeaders: HttpHeaders = new HttpHeaders({
-      Authorization: 'Bearer ' + localStorage.getItem("jwt")
+      "x-vts-auth": localStorage.getItem("jwt")
     });
 
     const ruta = Constants.customerUrl;
@@ -29,22 +31,20 @@ export class CustomersService {
     )
   }
 
-  selectOneCustomer(customer_id): Observable<Customer[]> {
+  selectOneCustomer(customer_id): Observable<Customer> {
     const httpHeaders: HttpHeaders = new HttpHeaders({
-      Authorization: 'Bearer ' + localStorage.getItem("jwt")
+      "x-vts-auth": localStorage.getItem("jwt")
     });
 
-    const ruta = Constants.customerWithId(customer_id);
+    const url = v3Api.get_item + "?SK=" + customer_id + "&PK=" + customer_id;
 
-    return this.http.get<Customer[]>(ruta, { headers: httpHeaders }).pipe(
+    return this.http.get<Customer>(url, { headers: httpHeaders }).pipe(
       map((res) => {
-        this.customers = res;
-        return this.customers;
+        this.customer = res;
+        return this.customer;
       })
     )
   }
-
-
 
   insertCustomer(customer: Customer) {
     const httpHeaders: HttpHeaders = new HttpHeaders({

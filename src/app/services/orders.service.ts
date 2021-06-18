@@ -5,32 +5,19 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { v3Api, query_body } from '../entities/v3api'
+import { Customer } from '../entities/customer';
+import { CustomersService } from './customers.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class OrdersService {
-
   orders: Order[];
-  constructor(private http: HttpClient) { }
+  customer: Customer;
 
-  selectOrders(): Observable<Order[]> {
-    const httpHeaders: HttpHeaders = new HttpHeaders({
-      Authorization: 'Bearer ' + localStorage.getItem("jwt")
-    });
+  constructor(private http: HttpClient, private customerService: CustomersService) { }
 
-    const ruta = Constants.orderUrl;
-    return this.http.get<Order[]>(ruta, { headers: httpHeaders }).pipe(
-      map((res) => {
-        this.orders = res;
-        console.log(this.orders);
-        return this.orders;
-      })
-    )
-  }
-
-
-  getOutstanding(): Observable<Order[]> {
+  getOrderByStatus(status:string): Observable<Order[]> {
     const httpHeaders: HttpHeaders = new HttpHeaders({
       "x-vts-auth": localStorage.getItem("jwt")
     });
@@ -42,7 +29,7 @@ export class OrdersService {
     let req = new query_body();
     let values = new expression_values();
 
-    values.status = "P_PAY"
+    values.status = status;
 
     req.expression = "GSI2PK = :status";
     req.key_name = "GSI2PK";
@@ -51,7 +38,14 @@ export class OrdersService {
     return this.http.post<Order[]>(v3Api.query, JSON.stringify(req), { headers: httpHeaders }).pipe(
       map((res) => {
         this.orders = res;
-        console.log(this.orders);
+
+/*
+        this.orders.forEach((obj: Order) => {
+          obj.Customer = this.customerService.selectOneCustomer(obj.Customer.PK)
+          return obj;
+        })
+*/
+
         return this.orders;
       })
     )

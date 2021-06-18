@@ -3,7 +3,7 @@ export class Product{
   SK: string; // type
   GSI1PK: string; // type
   GSI1SK: string; // product id
-   bPrice :number;
+  bPrice :number;
   Desc:string;
   aStock:number;
   Notes:string;

@@ -1,3 +1,6 @@
+import { Customer } from "./customer"
+import { OrderDetail } from "./orderdetail"
+
 export class Order{
   PK: string; //client Id
   SK: string; // ORD|uuid
@@ -9,4 +12,11 @@ export class Order{
   payDoc: string;
   payInfo: string;
   Total: number;
+
+  // fill with fetched customer class
+  Customer: Customer;
+
+  // Order details
+  orderDetails:OrderDetail[];
+  obj: any;
 }

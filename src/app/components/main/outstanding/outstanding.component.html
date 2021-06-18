@@ -8,16 +8,23 @@
             <th>Date Placed</th>
             <th>Notes</th>
             <th>View Detail</th>
+            <th>View Customer</th>
           </tr>
         </thead>
         <tbody>
           <tr *ngFor="let order of orders">
-            <td>{{ order.GSI1SK}}</td>
+            <td>{{ order.GSI1SK }}</td>
             <td>{{ order.Notes }}</td>
             <td>
               <fa-icon
                 [icon]="faEdit"
-                (click)="getDetails(order.GSI1PK)"
+                (click)="getDetails(order.SK)"
+              ></fa-icon>
+            </td>
+            <td>
+              <fa-icon
+                [icon]="faEdit"
+                (click)="getCustomer(order.PK)"
               ></fa-icon>
             </td>
           </tr>
@@ -29,7 +36,7 @@
 
 <div
   class="modal fade"
-  id="formularioActualizar"
+  id="detailsModal"
   tabindex="-1"
   aria-labelledby="exampleModalLabel"
   aria-hidden="true"
@@ -64,7 +71,79 @@
           </tr>
           <tr>
             <td colspan="2">Total:</td>
-            <td>S./ {{runningTotal}}</td>
+            <td>S./ {{ runningTotal }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+
+<div
+  class="modal fade"
+  id="customerModal"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Customer Info</h5>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+
+      <table class="table">
+        <thead>
+          <tr>
+            <th></th>
+            <th><b>Client</b></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Id</td>
+            <td>{{ customer?.PK }}</td>
+          </tr>
+          <tr>
+            <td>Name</td>
+            <td>{{ customer?.GSI1PK }}</td>
+          </tr>
+          <tr>
+            <td>Address1</td>
+            <td>{{ customer?.Address1 }}</td>
+          </tr>
+          <tr>
+            <td>Address2</td>
+            <td>{{ customer?.Address2 }}</td>
+          </tr>
+          <tr>
+            <td>Phone1</td>
+            <td>{{ customer?.Phone1 }}</td>
+          </tr>
+          <tr>
+            <td>Phone2</td>
+            <td>{{ customer?.Phone2 }}</td>
+          </tr>
+          <tr>
+            <td>Email</td>
+            <td>{{ customer?.Email }}</td>
+          </tr>
+          <tr>
+            <td>inCharge</td>
+            <td>{{ customer?.inCharge }}</td>
+          </tr>
+          <tr>
+            <td>Notes</td>
+            <td>{{ customer?.Notes }}</td>
           </tr>
         </tbody>
       </table>

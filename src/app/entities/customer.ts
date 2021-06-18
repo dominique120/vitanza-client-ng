@@ -1,3 +1,7 @@
+import { Order } from "./order"
+import { Filter_installation } from "./filter_installation"
+import { Note } from "./note"
+
 export class Customer{
   PK: string; //client Id
   SK: string; //client Id
@@ -12,4 +16,14 @@ export class Customer{
   Notes: string;
   Email: string;
   inCharge: string;
+
+  // Orders
+  orders:Order[];
+
+  // Filter installations
+  filterInstallations: Filter_installation[];
+
+  // Notes
+  notes: Note[];
+
 }

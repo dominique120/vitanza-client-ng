@@ -5,6 +5,8 @@ import { Order } from '../../../entities/order';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import {faEdit, faTimes, faInfo} from '@fortawesome/free-solid-svg-icons';
+import { Customer } from 'src/app/entities/customer';
+import { CustomersService } from 'src/app/services/customers.service';
 
 declare var $: any;
 
@@ -15,6 +17,7 @@ declare var $: any;
 })
 export class OutstandingComponent implements OnInit {
   orders: Order[];
+  customer: Customer;
   newOrder: any;
   orderUpdated: Order;
   runningTotal:number;
@@ -25,22 +28,24 @@ export class OutstandingComponent implements OnInit {
   faEdit = faEdit;
   faTimes = faTimes;
   faInfo = faInfo;
-  constructor(private order_svc: OrdersService, private details_svc: OrderdetailsService) { }
+  constructor(private order_svc: OrdersService,
+    private details_svc: OrderdetailsService,
+    private customer_svc: CustomersService) { }
 
   ngOnInit(): void {
     this.getOutstanding();
   }
 
   getOutstanding(): void {
-    this.order_svc.getOutstanding().subscribe(
+    this.order_svc.getOrderByStatus("P_PAY").subscribe(
       (res: Order[]) => {
         this.orders = res;
       }
     );
   }
 
-  getDetails(orderid): void {
-    this.details_svc.getDetails(orderid).subscribe(
+  getDetails(orderId): void {
+    this.details_svc.getDetails(orderId).subscribe(
       (res: OrderDetail[]) => {
         this.orderdetails = res;
 
@@ -49,7 +54,17 @@ export class OutstandingComponent implements OnInit {
         });
       }
     );
-    $("#formularioActualizar").modal('show');
+    $("#detailsModal").modal('show');
+  }
+
+
+  getCustomer(customerId): void {
+    this.customer_svc.selectOneCustomer(customerId).subscribe(
+      (res: Customer) => {
+        this.customer = res;
+      }
+    );
+    $("#customerModal").modal('show');
   }
 
 }

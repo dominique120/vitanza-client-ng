@@ -1,3 +1,6 @@
+import { Filter_change } from "./filter_change"
+import { Product } from "./product";
+
 export class Filter_installation {
   PK: string; //client Id
   SK: string; // FLI|uuid
@@ -10,4 +13,8 @@ export class Filter_installation {
   Who: string;
   Total: number;
   payInfo: string;
+
+  filterChanges: Filter_change[];
+
+  type: Product;
 }
