@@ -4,7 +4,6 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { faEdit, faTimes, faChevronDown, faChevronUp } from '@fortawesome/free-solid-svg-icons';
 
-
 declare var $: any;
 
 @Component({
@@ -18,14 +17,13 @@ export class CustomersComponent implements OnInit {
   faChevronUp = faChevronUp;
 
   reverse: boolean = false;
-  customerFilter: any = {LastNames: ''}
-  customerOrder: string = "LastNames"
+  customerFilter: any = {GSI1PK: ''}
+  customerOrder: string = "Names"
   pageNumber: number = 1
 
   customers: Customer[];
   newCust: any;
 
-  activeOptions: any = [ 1, 0];
   interstOptions: any = [ "Filters", "Chemicals", "Filters and Chemicals"]
 
   constructor(private cust_svc: CustomersService) { }
@@ -34,27 +32,29 @@ export class CustomersComponent implements OnInit {
   faTimes = faTimes;
 
   customerAgregarForm = new FormGroup({
-    FullName: new FormControl(),
+    FullName: new FormControl(), // GSI1PK
     PrimaryAddress: new FormControl(),
     PrimaryPhone: new FormControl(),
     SecondaryAddress: new FormControl(),
     SecondaryPhone: new FormControl(),
-    District: new FormControl(),
+    District: new FormControl(), // GSI1SK
     Intrest: new FormControl(),
     Notes: new FormControl(),
-    Active: new FormControl()
+    Email: new FormControl(),
+    InCharge: new FormControl()
   });
 
   customerActualizarForm = new FormGroup({
-    ClientId_uuid: new FormControl(),
-    FullName: new FormControl(),
+    FullName: new FormControl(), // GSI1PK
     PrimaryAddress: new FormControl(),
     PrimaryPhone: new FormControl(),
     SecondaryAddress: new FormControl(),
     SecondaryPhone: new FormControl(),
-    District: new FormControl(),
+    District: new FormControl(), // GSI1SK
     Intrest: new FormControl(),
     Notes: new FormControl(),
+    Email: new FormControl(),
+    InCharge: new FormControl(),
     Active: new FormControl()
   });
 
@@ -62,7 +62,6 @@ export class CustomersComponent implements OnInit {
 
   ngOnInit(): void {
     this.getCustomers();
-    console.log(this.customers);
   }
 
   setOrder(value: string){
@@ -99,13 +98,12 @@ export class CustomersComponent implements OnInit {
         console.log(res)
         this.newCust = {
           ClientId_uuid : values.ClientId_uuid,
-          FirstName : values.FirstName,
+          FullName : values.FullName,
           PrimaryAddress : values.PrimaryAddress,
           PrimaryPhone : values.PrimaryPhone,
           SecondaryAddress : values.SecondaryAddress,
           SecondaryPhone : values.SecondaryPhone,
           District : values.District,
-          LastNames : values.LastNames,
           Intrest : values.Intrest,
           Notes : values.Notes,
           Active : values.Active
@@ -116,7 +114,6 @@ export class CustomersComponent implements OnInit {
       }
     )
   }
-
 
   seleccionar(itemCustomer: Customer){
     console.log(itemCustomer);
@@ -149,7 +146,7 @@ export class CustomersComponent implements OnInit {
 
     c.PK = values.ClientId_uuid;
     c.SK = values.ClientId_uuid;
-    c.GSI1PK = values.FirstName;
+    c.GSI1PK = values.FullName;
     c.Address1 = values.PrimaryAddress;
     c.Phone1 = values.PrimaryPhone;
     c.Address2 = values.SecondaryAddress;
@@ -166,11 +163,10 @@ export class CustomersComponent implements OnInit {
   }
 
 
-  getCustomers(): void {
-    this.cust_svc.selectCustomers().subscribe(
+  getCustomers() {
+    this.cust_svc.getCustomersByStatus("ACTIVE").subscribe(
       (res: Customer[]) => {
         this.customers = res;
-        console.log(this.customers);
       }
     );
   }

@@ -2,24 +2,17 @@
   <div class="container">
     <div class="container my-5 text-center">
 
-
       <div class="form-group">
         <button class="btn btn-primary" style="background-color: #333;" (click)="mostrarFormularioAgregar()">New
           Customer</button>
       </div>
 
-
       <div id="formulario-agregar">
         <form ngNativeValidate [formGroup]="customerAgregarForm" (ngSubmit)="addCustomer(customerAgregarForm.value)">
 
           <div class="form-group">
-            <input type="text" name="" id="FirstName" class="form-control" placeholder="FirstName"
-            formControlName="FirstName">
-          </div>
-
-          <div class="form-group">
-            <input type="text" name="" id="LastNames" class="form-control" placeholder="LastNames"
-            formControlName="LastNames">
+            <input type="text" name="" id="FullName" class="form-control" placeholder="FullName"
+            formControlName="FullName">
           </div>
 
           <div class="form-group">
@@ -56,10 +49,6 @@
             <option *ngFor="let options of interstOptions">{{options}}</option>
           </select>
 
-          <select formControlName="Active" id="Active" class="form-control" placeholder="Active">
-            <option *ngFor="let options of activeOptions">{{options}}</option>
-          </select>
-
           <div class="form-group">
             <button class="btn btn-primary" style="background-color: #333; margin-right: 10px;"
               type="submit">Add</button>
@@ -68,11 +57,9 @@
         </form>
       </div>
 
-
-
       <div class="form-group">
         <input type="text" class="form-control"
-        [(ngModel)]="customerFilter.LastNames" placeholder="Search by last names">
+        [(ngModel)]="customerFilter.Names" placeholder="Search by Name">
       </div>
 
 
@@ -80,15 +67,20 @@
         <table class="table">
           <thead>
             <tr>
-              <th>Name</th>
-              <th (click)="setOrder('LastNames')"
-              [class.active]="customerOrder==='LastNames'">
-              Last Names
+              <th (click)="setOrder('Names')"
+              [class.active]="customerOrder==='Names'">
+              Names
               <span [hidden]="reverse"><fa-icon [icon]="faChevronUp"></fa-icon></span>
               <span [hidden]="!reverse"><fa-icon [icon]="faChevronUp"></fa-icon></span>
             </th>
-              <th>Primary Phone</th>
-              <th>District</th>
+              <th>Phone 1</th>
+              <th>Phone 2</th>
+              <th>Address 1</th>
+              <th>Address 2</th>
+              <th>Email</th>
+              <th>Intrest</th>
+              <th>Notes</th>
+              <th>In Charge</th>
               <th></th>
               <th></th>
             </tr>
@@ -99,10 +91,15 @@
             | orderBy: customerOrder : reverse
             | paginate: { itemsPerPage: 30, currentPage: pageNumber }
             ">
-              <td>{{cust.FirstName}}</td>
-              <td>{{cust.LastNames}}</td>
-              <td>{{cust.PrimaryPhone}}</td>
-              <td>{{cust.District}}</td>
+              <td>{{cust.GSI1PK}}</td>
+              <td>{{cust.Phone1}}</td>
+              <td>{{cust.Phone2}}</td>
+              <td>{{cust.Address1}}</td>
+              <td>{{cust.Address2}}</td>
+              <td>{{cust.Email}}</td>
+              <td>{{cust.Intrest}}</td>
+              <td>{{cust.Notes}}</td>
+              <td>{{cust.inCharge}}</td>
               <td>
                 <fa-icon [icon]="faEdit" (click)="seleccionar(cust)"></fa-icon>
               </td>
@@ -152,11 +149,6 @@
             [(ngModel)]="customerUpdated.FirstName">
           </div>
 
-          <div class="form-group">
-            <label for="LastNames">Last Name:</label>
-            <input type="text" name="" id="LastNames" class="form-control" placeholder="LastNames" formControlName="LastNames"
-            [(ngModel)]="customerUpdated.LastNames">
-          </div>
 
           <div class="form-group">
             <label for="PrimaryAddress">Primary Address:</label>
