@@ -12,11 +12,11 @@ export class Order{
   payDoc: string;
   payInfo: string;
   Total: number;
+  DeliveryMethod: string;
 
   // fill with fetched customer class
   Customer: Customer;
 
   // Order details
   orderDetails:OrderDetail[];
-  obj: any;
 }

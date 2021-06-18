@@ -1,3 +1,4 @@
+import { Customer } from "./customer";
 import { Filter_change } from "./filter_change"
 import { Product } from "./product";
 
@@ -16,5 +17,7 @@ export class Filter_installation {
 
   filterChanges: Filter_change[];
 
-  type: Product;
+  productType: Product;
+
+  customer: Customer;
 }

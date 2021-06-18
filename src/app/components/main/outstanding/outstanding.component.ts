@@ -3,8 +3,7 @@ import { OrderdetailsService } from '../../../services/orderdetails.service';
 import { OrdersService } from '../../../services/orders.service';
 import { Order } from '../../../entities/order';
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
-import {faEdit, faTimes, faInfo} from '@fortawesome/free-solid-svg-icons';
+import { faEdit, faTimes, faInfo } from '@fortawesome/free-solid-svg-icons';
 import { Customer } from 'src/app/entities/customer';
 import { CustomersService } from 'src/app/services/customers.service';
 
@@ -15,19 +14,20 @@ declare var $: any;
   templateUrl: './outstanding.component.html',
   styleUrls: ['./outstanding.component.css']
 })
+
 export class OutstandingComponent implements OnInit {
   orders: Order[];
   customer: Customer;
   newOrder: any;
   orderUpdated: Order;
-  runningTotal:number;
+  runningTotal:number = 0;
 
   orderdetails: OrderDetail[];
-
 
   faEdit = faEdit;
   faTimes = faTimes;
   faInfo = faInfo;
+
   constructor(private order_svc: OrdersService,
     private details_svc: OrderdetailsService,
     private customer_svc: CustomersService) { }
@@ -64,7 +64,37 @@ export class OutstandingComponent implements OnInit {
         this.customer = res;
       }
     );
-    $("#customerModal").modal('show');
+    $("#ordersCustomerModal").modal('show');
+  }
+
+
+  getDate():string {
+    var today = new Date();
+    var dd = String(today.getDate()).padStart(2, '0');
+    var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+    var yyyy = today.getFullYear();
+
+    console.log("Current date: " + dd + '/' + mm + '/' + yyyy)
+
+    return dd + '/' + mm + '/' + yyyy;
+  }
+
+  getNextMonth():string {
+    var today = new Date();
+    var dd = String(today.getDate()).padStart(2, '0');
+    var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+    var yyyy = today.getFullYear();
+
+    if (Number(mm) == 11){
+      mm = "1"
+      yyyy = yyyy + 1
+    } else {
+      mm = String(Number(mm) + 1).padStart(2, "0")
+    }
+
+    console.log("Next date: " + dd + '/' + mm + '/' + yyyy)
+
+    return dd + '/' + mm + '/' + yyyy;
   }
 
 }

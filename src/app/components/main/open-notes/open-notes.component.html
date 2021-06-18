@@ -1,1 +1,157 @@
-<p>open-notes works!</p>
+<section class="mt-5" id="open-notes">
+<h2>Open Notes</h2>
+  <div class="container">
+    <div class="container my-5 text-center">
+      <div class="p-4"></div>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Status</th>
+            <th>Date</th>
+            <th>Note</th>
+            <th>View Detail</th>
+            <th>View Customer</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let note of notes">
+            <td>{{ note.GSI1PK }}</td>
+            <td>{{ note.GSI1SK }}</td>
+            <td>{{ note.Note }}</td>
+            <td>
+              <fa-icon
+                [icon]="faEdit"
+                (click)="getNoteDetails(note.PK, note.SK)"
+              ></fa-icon>
+            </td>
+            <td>
+              <fa-icon
+                [icon]="faEdit"
+                (click)="getCustomer(order.PK)"
+              ></fa-icon>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<div
+  class="modal fade"
+  id="noteDetailsModal"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Note Details</h5>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Note</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Date</td>
+            <td>{{ note?.GSI1SK }}</td>
+          </tr>
+          <tr>
+            <td>Status</td>
+            <td>{{ note?.GSI1PK }}</td>
+          </tr>
+          <tr>
+            <td>Note</td>
+            <td>{{ note?.Note }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+
+<div
+  class="modal fade"
+  id="notesCustomerModal"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Customer Info</h5>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+
+      <table class="table">
+        <thead>
+          <tr>
+            <th></th>
+            <th><b>Client</b></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Id</td>
+            <td>{{ customer?.PK }}</td>
+          </tr>
+          <tr>
+            <td>Name</td>
+            <td>{{ customer?.GSI1PK }}</td>
+          </tr>
+          <tr>
+            <td>Address1</td>
+            <td>{{ customer?.Address1 }}</td>
+          </tr>
+          <tr>
+            <td>Address2</td>
+            <td>{{ customer?.Address2 }}</td>
+          </tr>
+          <tr>
+            <td>Phone1</td>
+            <td>{{ customer?.Phone1 }}</td>
+          </tr>
+          <tr>
+            <td>Phone2</td>
+            <td>{{ customer?.Phone2 }}</td>
+          </tr>
+          <tr>
+            <td>Email</td>
+            <td>{{ customer?.Email }}</td>
+          </tr>
+          <tr>
+            <td>inCharge</td>
+            <td>{{ customer?.inCharge }}</td>
+          </tr>
+          <tr>
+            <td>Notes</td>
+            <td>{{ customer?.Notes }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

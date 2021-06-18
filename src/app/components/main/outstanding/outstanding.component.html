@@ -1,4 +1,5 @@
-<section class="mt-5" id="portfolio">
+<section class="mt-5" id="outstanding-orders">
+  <h2>Outstanding Orders</h2>
   <div class="container">
     <div class="container my-5 text-center">
       <div class="p-4"></div>
@@ -6,7 +7,9 @@
         <thead>
           <tr>
             <th>Date Placed</th>
+            <th>Delivery Method</th>
             <th>Notes</th>
+            <th>Total</th>
             <th>View Detail</th>
             <th>View Customer</th>
           </tr>
@@ -14,7 +17,9 @@
         <tbody>
           <tr *ngFor="let order of orders">
             <td>{{ order.GSI1SK }}</td>
+            <td>{{ order.DeliveryMethod }}</td>
             <td>{{ order.Notes }}</td>
+            <td>{{ order.Total }}</td>
             <td>
               <fa-icon
                 [icon]="faEdit"
@@ -82,7 +87,7 @@
 
 <div
   class="modal fade"
-  id="customerModal"
+  id="ordersCustomerModal"
   tabindex="-1"
   aria-labelledby="exampleModalLabel"
   aria-hidden="true"

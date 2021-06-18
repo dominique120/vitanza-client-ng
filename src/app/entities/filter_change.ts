@@ -1,13 +1,16 @@
+import { Customer } from "./customer";
+
 export class Filter_change {
-  PK: string; //client Id
-  SK: string; // FLI|uuid
-  GSI1PK: string; // FLI|uuid
-  GSI1SK: string; // date
+  PK: string; //FLI|uuid
+  SK: string; // FLC|uuid
+  GSI1PK: string; // Status
+  GSI1SK: string; // datechange
+  GSI2PK: string; // CLI|uuid
   Notes: string;
   Who: string;
   payDoc: string;
   Total: number;
   payInfo: string;
 
-
+  customer: Customer;
 }

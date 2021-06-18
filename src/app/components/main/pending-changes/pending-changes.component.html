@@ -1,1 +1,157 @@
-<p>pending-changes works!</p>
+<section class="mt-5" id="pending-orders">
+<h2>Pending Orders</h2>
+  <div class="container">
+    <div class="container my-5 text-center">
+      <div class="p-4"></div>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Date Change</th>
+            <th>Notes</th>
+            <th>Total</th>
+            <th>Who</th>
+            <th>View Installation</th>
+            <th>View Customer</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let change of filterChanges">
+            <td>{{ change.GSI1SK }}</td>
+            <td>{{ change.Notes }}</td>
+            <td>{{ change.Total }}</td>
+            <td>{{ change.Who }}</td>
+            <td>
+              <fa-icon
+                [icon]="faEdit"
+                (click)="getInstallationInfo(change.GSI2PK ,change.PK)"
+              ></fa-icon>
+            </td>
+            <td>
+              <fa-icon
+                [icon]="faEdit"
+                (click)="getCustomer(change.GSI2PK)"
+              ></fa-icon>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<div
+  class="modal fade"
+  id="pendingInstallationModal"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Installation Details</h5>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Date Installed</th>
+            <th>Notes</th>
+            <th>Address</th>
+            <th>Type</th>
+            <th>Who</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>{{ filterInstallation?.GSI1SK }}</td>
+            <td>{{ filterInstallation?.Notes }}</td>
+            <td>{{ filterInstallation?.Address }}</td>
+            <td>{{ filterInstallation?.Type }}</td>
+            <td>{{ filterInstallation?.Who }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+
+<div
+  class="modal fade"
+  id="pendingChangesCustomerModal"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Customer Info</h5>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+
+      <table class="table">
+        <thead>
+          <tr>
+            <th></th>
+            <th><b>Client</b></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Id</td>
+            <td>{{ customer?.PK }}</td>
+          </tr>
+          <tr>
+            <td>Name</td>
+            <td>{{ customer?.GSI1PK }}</td>
+          </tr>
+          <tr>
+            <td>Address1</td>
+            <td>{{ customer?.Address1 }}</td>
+          </tr>
+          <tr>
+            <td>Address2</td>
+            <td>{{ customer?.Address2 }}</td>
+          </tr>
+          <tr>
+            <td>Phone1</td>
+            <td>{{ customer?.Phone1 }}</td>
+          </tr>
+          <tr>
+            <td>Phone2</td>
+            <td>{{ customer?.Phone2 }}</td>
+          </tr>
+          <tr>
+            <td>Email</td>
+            <td>{{ customer?.Email }}</td>
+          </tr>
+          <tr>
+            <td>inCharge</td>
+            <td>{{ customer?.inCharge }}</td>
+          </tr>
+          <tr>
+            <td>Notes</td>
+            <td>{{ customer?.Notes }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
