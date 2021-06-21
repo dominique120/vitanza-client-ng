@@ -11,6 +11,7 @@ export class Filter_change {
   payDoc: string;
   Total: number;
   payInfo: string;
+  dateAdded: string;
 
   customer: Customer;
 }

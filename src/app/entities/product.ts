@@ -8,4 +8,6 @@ export class Product{
   aStock:number;
   Notes:string;
   Name:string;
+  dateAdded: string;
+
 }

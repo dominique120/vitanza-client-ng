@@ -22,16 +22,18 @@ export class CustomersComponent implements OnInit {
   pageNumber: number = 1
 
   customers: Customer[];
-  newCust: any;
+  newCustomer: any;
 
   interstOptions: any = [ "Filters", "Chemicals", "Filters and Chemicals"]
+  districtOptions: any = [ "Cercado de Lima", "Ate", "Barranco", "Breña", "Comas", "Chorrillos", "El Agustino", "Jesús María", "La Molina", "La Victoria", "Lince", "Magdalena del Mar", "Miraflores", "Pueblo Libre", "Puente Piedra", "Rimac", "San Isidro", "Independencia", "San Juan de Miraflores", "San Luis", "San Martin de Porres", "San Miguel", "Santiago de Surco", "Surquillo", "Villa María del Triunfo", "San Juan de Lurigancho", "Santa Rosa", "Los Olivos", "San Borja", "Villa El Savador", "Santa Anita", "Cercado Callao", "Bellavista", "Carmen de la Legua", "La Perla", "La Punta", "Ventanilla" ]
 
-  constructor(private cust_svc: CustomersService) { }
+
+  constructor(private customer_svc: CustomersService) { }
 
   faEdit = faEdit;
   faTimes = faTimes;
 
-  customerAgregarForm = new FormGroup({
+  AddCustomerForm = new FormGroup({
     FullName: new FormControl(), // GSI1PK
     PrimaryAddress: new FormControl(),
     PrimaryPhone: new FormControl(),
@@ -41,7 +43,7 @@ export class CustomersComponent implements OnInit {
     Intrest: new FormControl(),
     Notes: new FormControl(),
     Email: new FormControl(),
-    InCharge: new FormControl()
+    inCharge: new FormControl()
   });
 
   customerActualizarForm = new FormGroup({
@@ -78,38 +80,42 @@ export class CustomersComponent implements OnInit {
     $("#formulario-agregar").slideUp("slow");
   }
 
-  addCustomer(values){
-    console.log(values);
+  addCustomer(formValues){
+    console.log(formValues);
 
-    let c: Customer = new Customer();
+    let newCustomer: Customer = new Customer();
 
-    c.GSI1PK = values.FullName;
-    c.Address1 = values.PrimaryAddress;
-    c.Phone1 = values.PrimaryPhone;
-    c.Address2 = values.SecondaryAddress;
-    c.Phone2 = values.SecondaryPhone;
-    c.GSI1SK = values.District;
-    c.Notes = values.Notes;
-    c.Intrest = values.Intrest;
-    c.GSI2PK = values.Active;
+    newCustomer.GSI1PK    =   formValues.FullName;
+    newCustomer.GSI1SK    =   formValues.District;
+    newCustomer.Address1  =   formValues.PrimaryAddress;
+    newCustomer.Address2  =   formValues.SecondaryAddress;
+    newCustomer.Phone1    =   formValues.PrimaryPhone;
+    newCustomer.Phone2    =   formValues.SecondaryPhone;
+    newCustomer.Intrest   =   formValues.Intrest;
+    newCustomer.Notes     =   formValues.Notes;
+    newCustomer.Email     =   formValues.Email;
+    newCustomer.inCharge  =   formValues.inCharge;
 
-    this.cust_svc.insertCustomer(c).subscribe(
+    this.customer_svc.insertCustomer(newCustomer).subscribe(
       (res) => {
         console.log(res)
-        this.newCust = {
-          ClientId_uuid : values.ClientId_uuid,
-          FullName : values.FullName,
-          PrimaryAddress : values.PrimaryAddress,
-          PrimaryPhone : values.PrimaryPhone,
-          SecondaryAddress : values.SecondaryAddress,
-          SecondaryPhone : values.SecondaryPhone,
-          District : values.District,
-          Intrest : values.Intrest,
-          Notes : values.Notes,
-          Active : values.Active
+        this.newCustomer = {
+          GSI1PK    :  formValues.FullName,
+          GSI1SK    :  formValues.District,
+          Address1  :  formValues.Address1,
+          Address2  :  formValues.Address2,
+          Phone1    :  formValues.Phone1,
+          Phone2    :  formValues.Phone2,
+          Intrest   :  formValues.Intrest,
+          Notes     :  formValues.Notes,
+          Email     :  formValues.Email,
+          inCharge  :  formValues.inCharge
         }
-        this.customers.push(this.newCust);
-        this.customerAgregarForm.reset();
+
+        this.customers.push(this.newCustomer);
+
+        this.AddCustomerForm.reset();
+
         $("#formulario-agregar").slideUp("slow");
       }
     )
@@ -124,7 +130,7 @@ export class CustomersComponent implements OnInit {
   eliminar(itemCustomer:Customer){
     var respuesta = confirm("Are you sure you wish to delete " + itemCustomer.GSI1PK + " (This will remove all asociated information)?");
     if (respuesta == true) {
-      this.cust_svc.deleteCustomer(itemCustomer.PK).subscribe();
+      this.customer_svc.deleteCustomer(itemCustomer.PK).subscribe();
       this.customers = this.customers.filter(item => item.PK !== itemCustomer.PK);
       alert("You have removed: "  + itemCustomer.GSI1PK + " " + itemCustomer.GSI1PK + " from the registry.");
     }
@@ -133,7 +139,7 @@ export class CustomersComponent implements OnInit {
   deactivate(itemCustomer:Customer){
     var respuesta = confirm("Are you sure you wish to deactivate " + itemCustomer.GSI1PK + "?");
     if (respuesta == true) {
-      this.cust_svc.deactivateCustomer(itemCustomer.PK).subscribe();
+      this.customer_svc.deactivateCustomer(itemCustomer.PK).subscribe();
       this.customers = this.customers.filter(item => item.PK !== itemCustomer.PK);
       alert(itemCustomer.GSI1PK + " has been de-activated.");
     }
@@ -157,14 +163,14 @@ export class CustomersComponent implements OnInit {
     c.GSI2PK = values.Active;
 
 
-    this.cust_svc.updateCustomer(c).subscribe();
+    this.customer_svc.updateCustomer(c).subscribe();
       alert("Updated: " + c.GSI1PK);
       $('#formulario-actualizar').modal('hide');
   }
 
 
   getCustomers() {
-    this.cust_svc.getCustomersByStatus("ACTIVE").subscribe(
+    this.customer_svc.getCustomersByStatus("ACTIVE").subscribe(
       (res: Customer[]) => {
         this.customers = res;
       }

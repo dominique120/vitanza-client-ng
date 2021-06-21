@@ -14,6 +14,7 @@ export class Filter_installation {
   Who: string;
   Total: number;
   payInfo: string;
+  dateAdded: string;
 
   filterChanges: Filter_change[];
 

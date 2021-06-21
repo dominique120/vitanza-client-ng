@@ -6,6 +6,7 @@ export class Note {
   GSI1PK: string; // status
   GSI1SK: string; // date
   Note: string;
+  dateAdded: string;
 
   customer: Customer;
 }

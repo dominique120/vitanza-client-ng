@@ -7,6 +7,8 @@ export class OrderDetail{
   Qty: number;
   oPrice: number;
   Name: string;
+  dateAdded: string;
+
 
   product:Product;
 }

@@ -13,6 +13,7 @@ export class Order{
   payInfo: string;
   Total: number;
   DeliveryMethod: string;
+  dateAdded: string;
 
   // fill with fetched customer class
   Customer: Customer;

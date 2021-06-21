@@ -5,6 +5,8 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, pipe, of } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
 import { v3Api, query_body } from '../entities/v3api';
+import { nanoid } from "nanoid"
+import { Tools } from '../tools/tools';
 
 @Injectable({
   providedIn: 'root'
@@ -61,11 +63,15 @@ export class CustomersService {
       "x-vts-auth": localStorage.getItem("jwt")
     });
 
-    const ruta = Constants.customerUrl;
+    let id = nanoid(12);
+    customer.PK = "CLI#" + id;
+    customer.SK = "CLI#" + id;
+    customer.GSI2PK = "ACTIVE";
+    customer.dateAdded = Tools.getDateTime();
 
-    let reqbody = JSON.stringify(customer);
+    const ruta = v3Api.new_item;
 
-    return this.http.post(ruta, reqbody, { headers: httpHeaders }).pipe(
+    return this.http.post(ruta, JSON.stringify(customer), { headers: httpHeaders }).pipe(
       map((res) => {
         return res;
       })

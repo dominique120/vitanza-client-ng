@@ -8,8 +8,62 @@
       </div>
 
       <div id="formulario-agregar">
-        <form ngNativeValidate [formGroup]="customerAgregarForm" (ngSubmit)="addCustomer(customerAgregarForm.value)">
+        <form ngNativeValidate [formGroup]="AddCustomerForm" (ngSubmit)="addCustomer(AddCustomerForm.value)">
 
+          <div class="form-floating">
+            <input type="text" class="form-control" id="FullName" placeholder="Full Name" formControlName="FullName">
+            <label for="FullName">Full Name</label>
+          </div>
+
+          <div class="form-floating">
+            <input type="text" class="form-control" id="PrimaryAddress" placeholder="Primary Address" formControlName="PrimaryAddress">
+            <label for="PrimaryAddress">Primary Address</label>
+          </div>
+
+          <div class="form-floating">
+            <input type="text" class="form-control" id="PrimaryPhone" placeholder="Primary Phone" formControlName="PrimaryPhone">
+            <label for="PrimaryPhone">Primary Phone</label>
+          </div>
+
+          <div class="form-floating">
+            <input type="text" class="form-control" id="SecondaryAddress" placeholder="Secondary Address" formControlName="SecondaryAddress">
+            <label for="SecondaryAddress">Secondary Address</label>
+          </div>
+
+          <div class="form-floating">
+            <input type="text" class="form-control" id="SecondaryPhone" placeholder="Secondary Phone" formControlName="SecondaryPhone">
+            <label for="SecondaryPhone">Secondary Phone</label>
+          </div>
+
+          <div class="form-floating">
+            <input type="email" class="form-control" id="Email" placeholder="Email" formControlName="Email">
+            <label for="Email">Email</label>
+          </div>
+
+          <div class="form-floating">
+            <input type="text" class="form-control" id="inCharge" placeholder="In Charge" formControlName="inCharge">
+            <label for="InCharge">In Charge</label>
+          </div>
+
+          <select formControlName="District" id="District" class="form-control" placeholder="District">
+            <option *ngFor="let options of districtOptions">{{options}}</option>
+          </select>
+
+          <select formControlName="Intrest" id="Intrest" class="form-control" placeholder="Intrest">
+            <option *ngFor="let options of interstOptions">{{options}}</option>
+          </select>
+<!--
+          <div class="form-floating">
+            <input type="text" class="form-control" id="Notes" placeholder="Notes" formControlName="Notes">
+            <label for="Notes">Notes</label>
+          </div>
+-->
+          <div class="form-group">
+            <label for="Notes" class="form-label mt-4">Notes</label>
+            <textarea class="form-control" id="Notes" rows="2" formControlName="Notes"></textarea>
+          </div>
+
+          <!--
           <div class="form-group">
             <input type="text" name="" id="FullName" class="form-control" placeholder="FullName"
             formControlName="FullName">
@@ -49,6 +103,7 @@
             <option *ngFor="let options of interstOptions">{{options}}</option>
           </select>
 
+        -->
           <div class="form-group">
             <button class="btn btn-primary" style="background-color: #333; margin-right: 10px;"
               type="submit">Add</button>

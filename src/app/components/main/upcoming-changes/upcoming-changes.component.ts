@@ -6,6 +6,7 @@ import { Filter_installation } from 'src/app/entities/filter_installation';
 import { CustomersService } from 'src/app/services/customers.service';
 import { FilterchangeService } from 'src/app/services/filterchange.service';
 import { FilterinstallationService } from 'src/app/services/filterinstallation.service';
+import { Tools } from 'src/app/tools/tools';
 
 declare var $: any;
 
@@ -26,7 +27,7 @@ export class UpcomingChangesComponent implements OnInit {
     private filterInstallation_svc: FilterinstallationService) { }
 
   ngOnInit(): void {
-    this.getUpcomingChanges("UPCOMING", this.getDate(), this.getNextMonth());
+    this.getUpcomingChanges("UPCOMING", Tools.getDate(), Tools.getOffsetDate(30));
   }
 
   customer: Customer;
@@ -59,34 +60,5 @@ export class UpcomingChangesComponent implements OnInit {
       }
     );
     $("#upcomingInstallationModal").modal('show');
-  }
-
-  getDate():string {
-    var today = new Date();
-    var dd = String(today.getDate()).padStart(2, '0');
-    var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
-    var yyyy = today.getFullYear();
-
-    console.log("Current date: " + dd + '/' + mm + '/' + yyyy)
-
-    return dd + '/' + mm + '/' + yyyy;
-  }
-
-  getNextMonth():string {
-    var today = new Date();
-    var dd = String(today.getDate()).padStart(2, '0');
-    var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
-    var yyyy = today.getFullYear();
-
-    if (Number(mm) == 11){
-      mm = "1"
-      yyyy = yyyy + 1
-    } else {
-      mm = String(Number(mm) + 1).padStart(2, "0")
-    }
-
-    console.log("Next date: " + dd + '/' + mm + '/' + yyyy)
-
-    return dd + '/' + mm + '/' + yyyy;
   }
 }

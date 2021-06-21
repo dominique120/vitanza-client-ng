@@ -5,6 +5,7 @@ import { Note } from "./note"
 export class Customer{
   PK: string; //client Id
   SK: string; //client Id
+
   GSI1PK: string; // full name
   GSI1SK: string; // district
   GSI2PK: string; // status
@@ -16,6 +17,7 @@ export class Customer{
   Notes: string;
   Email: string;
   inCharge: string;
+  dateAdded: string;
 
   // Orders
   orders:Order[];
