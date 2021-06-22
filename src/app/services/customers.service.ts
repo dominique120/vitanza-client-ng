@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, pipe, of } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
-import { v3Api, query_body } from '../entities/v3api';
+import { v3Api, query_body, update_body } from '../entities/v3api';
 import { nanoid } from "nanoid"
 import { Tools } from '../tools/tools';
 
@@ -17,7 +17,7 @@ export class CustomersService {
   customer: Customer;
   constructor(private http: HttpClient) { }
 
-  getCustomersByStatus(status:string): Observable<Customer[]> {
+  getCustomersByStatus(status: string): Observable<Customer[]> {
     const httpHeaders: HttpHeaders = new HttpHeaders({
       "x-vts-auth": localStorage.getItem("jwt")
     });
@@ -34,6 +34,8 @@ export class CustomersService {
     req.expression = "GSI2PK = :status";
     req.key_name = "GSI2PK";
     req.expression_values = values;
+
+    req.projection = "PK, GSI1PK, GSI1SK, Address1, Phone1";
 
     return this.http.post<Customer[]>(v3Api.query, JSON.stringify(req), { headers: httpHeaders }).pipe(
       map((res) => {
@@ -58,36 +60,54 @@ export class CustomersService {
     )
   }
 
-  insertCustomer(customer: Customer) {
+  insertCustomer(customer: Customer): number {
+    let statusCode: number = 0;
     const httpHeaders: HttpHeaders = new HttpHeaders({
       "x-vts-auth": localStorage.getItem("jwt")
     });
 
     let id = nanoid(12);
-    customer.PK = "CLI#" + id;
-    customer.SK = "CLI#" + id;
+    customer.PK = "CLI|" + id;
+    customer.SK = "CLI|" + id;
     customer.GSI2PK = "ACTIVE";
-    customer.dateAdded = Tools.getDateTime();
+    customer.DateAdded = Tools.getDateTime();
 
     const ruta = v3Api.new_item;
 
-    return this.http.post(ruta, JSON.stringify(customer), { headers: httpHeaders }).pipe(
-      map((res) => {
-        return res;
-      })
-    )
+    this.http.post(ruta, JSON.stringify(customer), { headers: httpHeaders, observe: 'response' }).subscribe(response => {
+      statusCode = response.status;
+    });
+
+    return statusCode;
   }
 
-  updateCustomer(customer: Customer) {
+  updateCustomer(customer: Customer, customerId: string): Number {
+    let statusCode: Number = 0
     const httpHeaders: HttpHeaders = new HttpHeaders({
       "x-vts-auth": localStorage.getItem("jwt")
     });
 
-    const ruta = Constants.customerWithId(customer.PK);
+    let updBody = new update_body();
 
-    let reqbody = JSON.stringify(customer);
+    class PK {
+      PK: string;
+      SK: string;
+    }
 
-    return this.http.put(ruta, reqbody, { headers: httpHeaders });
+    let pk = new PK();
+    pk.PK = customerId;
+    pk.SK = customerId;
+
+    updBody.primarykey = pk;
+
+    updBody.contents = customer;
+
+    this.http.put(v3Api.update_item, JSON.stringify(updBody), { headers: httpHeaders, observe: 'response' })
+      .subscribe(response => {
+        statusCode = response.status;
+      });
+
+    return statusCode
   }
 
   deleteCustomer(customer_id) {
@@ -97,7 +117,7 @@ export class CustomersService {
       "x-vts-auth": localStorage.getItem("jwt")
     });
 
-    return this.http.delete(ruta, { headers: httpHeaders});
+    return this.http.delete(ruta, { headers: httpHeaders });
   }
 
   deactivateCustomer(customer_id) {
@@ -107,6 +127,6 @@ export class CustomersService {
       "x-vts-auth": localStorage.getItem("jwt")
     });
 
-    return this.http.post(ruta, { headers: httpHeaders});
+    return this.http.post(ruta, { headers: httpHeaders });
   }
 }

@@ -36,6 +36,8 @@ export class FilterchangeService {
     req.key_name = "GSI1PK";
     req.expression_values = values;
 
+    req.projection = "";
+
     return this.http.post<Filter_change[]>(v3Api.query, JSON.stringify(req), { headers: httpHeaders }).pipe(
       map((res) => {
         this.filterChanges = res;

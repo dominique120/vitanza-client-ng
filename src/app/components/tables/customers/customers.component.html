@@ -3,35 +3,35 @@
     <div class="container my-5 text-center">
 
       <div class="form-group">
-        <button class="btn btn-primary" style="background-color: #333;" (click)="mostrarFormularioAgregar()">New
+        <button class="btn btn-primary" style="background-color: #333;" (click)="showAdditionForm()">New
           Customer</button>
       </div>
 
-      <div id="formulario-agregar">
+      <div id="addition-form" style="display: none;">
         <form ngNativeValidate [formGroup]="AddCustomerForm" (ngSubmit)="addCustomer(AddCustomerForm.value)">
 
           <div class="form-floating">
-            <input type="text" class="form-control" id="FullName" placeholder="Full Name" formControlName="FullName">
+            <input type="text" class="form-control" id="FullName" placeholder="Full Name" formControlName="GSI1PK" required>
             <label for="FullName">Full Name</label>
           </div>
 
           <div class="form-floating">
-            <input type="text" class="form-control" id="PrimaryAddress" placeholder="Primary Address" formControlName="PrimaryAddress">
+            <input type="text" class="form-control" id="PrimaryAddress" placeholder="Primary Address" formControlName="Address1" required>
             <label for="PrimaryAddress">Primary Address</label>
           </div>
 
           <div class="form-floating">
-            <input type="text" class="form-control" id="PrimaryPhone" placeholder="Primary Phone" formControlName="PrimaryPhone">
+            <input type="text" class="form-control" id="PrimaryPhone" placeholder="Primary Phone" formControlName="Phone1" required>
             <label for="PrimaryPhone">Primary Phone</label>
           </div>
 
           <div class="form-floating">
-            <input type="text" class="form-control" id="SecondaryAddress" placeholder="Secondary Address" formControlName="SecondaryAddress">
+            <input type="text" class="form-control" id="SecondaryAddress" placeholder="Secondary Address" formControlName="Address2">
             <label for="SecondaryAddress">Secondary Address</label>
           </div>
 
           <div class="form-floating">
-            <input type="text" class="form-control" id="SecondaryPhone" placeholder="Secondary Phone" formControlName="SecondaryPhone">
+            <input type="text" class="form-control" id="SecondaryPhone" placeholder="Secondary Phone" formControlName="Phone2">
             <label for="SecondaryPhone">Secondary Phone</label>
           </div>
 
@@ -41,80 +41,34 @@
           </div>
 
           <div class="form-floating">
-            <input type="text" class="form-control" id="inCharge" placeholder="In Charge" formControlName="inCharge">
+            <input type="text" class="form-control" id="inCharge" placeholder="In Charge" formControlName="InCharge">
             <label for="InCharge">In Charge</label>
           </div>
 
-          <select formControlName="District" id="District" class="form-control" placeholder="District">
+          <select formControlName="GSI1SK" id="District" class="form-control" placeholder="District" required>
             <option *ngFor="let options of districtOptions">{{options}}</option>
           </select>
 
-          <select formControlName="Intrest" id="Intrest" class="form-control" placeholder="Intrest">
+          <select formControlName="Intrest" id="Intrest" class="form-control" placeholder="Intrest" required>
             <option *ngFor="let options of interstOptions">{{options}}</option>
           </select>
-<!--
-          <div class="form-floating">
-            <input type="text" class="form-control" id="Notes" placeholder="Notes" formControlName="Notes">
-            <label for="Notes">Notes</label>
-          </div>
--->
+
           <div class="form-group">
             <label for="Notes" class="form-label mt-4">Notes</label>
             <textarea class="form-control" id="Notes" rows="2" formControlName="Notes"></textarea>
           </div>
 
-          <!--
-          <div class="form-group">
-            <input type="text" name="" id="FullName" class="form-control" placeholder="FullName"
-            formControlName="FullName">
-          </div>
-
-          <div class="form-group">
-            <input type="text" name="" id="PrimaryAddress" class="form-control" placeholder="PrimaryAddress"
-              formControlName="PrimaryAddress">
-          </div>
-
-          <div class="form-group">
-            <input type="text" name="" id="PrimaryPhone" class="form-control" placeholder="PrimaryPhone"
-            formControlName="PrimaryPhone">
-          </div>
-
-          <div class="form-group">
-            <input type="text" name="" id="SecondaryAddress" class="form-control" placeholder="SecondaryAddress"
-            formControlName="SecondaryAddress">
-          </div>
-
-          <div class="form-group">
-            <input type="text" name="" id="SecondaryPhone" class="form-control" placeholder="SecondaryPhone"
-              formControlName="SecondaryPhone">
-          </div>
-
-          <div class="form-group">
-            <input type="text" name="" id="District" class="form-control" placeholder="District"
-            formControlName="District">
-          </div>
-
-          <div class="form-group">
-            <input type="text" name="" id="Notes" class="form-control" placeholder="Notes"
-            formControlName="Notes">
-          </div>
-
-          <select formControlName="Intrest" id="Intrest" class="form-control" placeholder="Intrest">
-            <option *ngFor="let options of interstOptions">{{options}}</option>
-          </select>
-
-        -->
           <div class="form-group">
             <button class="btn btn-primary" style="background-color: #333; margin-right: 10px;"
               type="submit">Add</button>
-            <button class="btn btn-secondary" type="button" (click)="cerrarFormularioAgregar()">Close</button>
+            <button class="btn btn-secondary" type="button" (click)="closeAdditionForm()">Close</button>
           </div>
         </form>
       </div>
 
       <div class="form-group">
         <input type="text" class="form-control"
-        [(ngModel)]="customerFilter.Names" placeholder="Search by Name">
+        [(ngModel)]="customerFilter.GSI1PK" placeholder="Search by Name">
       </div>
 
 
@@ -122,22 +76,16 @@
         <table class="table">
           <thead>
             <tr>
-              <th (click)="setOrder('Names')"
-              [class.active]="customerOrder==='Names'">
+              <th (click)="setOrder('GSI1PK')"
+              [class.active]="customerOrder==='GSI1PK'">
               Names
               <span [hidden]="reverse"><fa-icon [icon]="faChevronUp"></fa-icon></span>
               <span [hidden]="!reverse"><fa-icon [icon]="faChevronUp"></fa-icon></span>
             </th>
               <th>Phone 1</th>
-              <th>Phone 2</th>
               <th>Address 1</th>
-              <th>Address 2</th>
-              <th>Email</th>
-              <th>Intrest</th>
-              <th>Notes</th>
-              <th>In Charge</th>
-              <th></th>
-              <th></th>
+              <th>District</th>
+              <th>Details</th>
             </tr>
           </thead>
           <tbody>
@@ -148,19 +96,16 @@
             ">
               <td>{{cust.GSI1PK}}</td>
               <td>{{cust.Phone1}}</td>
-              <td>{{cust.Phone2}}</td>
               <td>{{cust.Address1}}</td>
-              <td>{{cust.Address2}}</td>
-              <td>{{cust.Email}}</td>
-              <td>{{cust.Intrest}}</td>
-              <td>{{cust.Notes}}</td>
-              <td>{{cust.inCharge}}</td>
+              <td>{{cust.GSI1SK}}</td>
               <td>
-                <fa-icon [icon]="faEdit" (click)="seleccionar(cust)"></fa-icon>
+                <fa-icon [icon]="faEdit" (click)="seleccionar(cust.PK)"></fa-icon>
               </td>
+              <!--
               <td>
                 <fa-icon [icon]="faTimes" (click)="deactivate(cust)"></fa-icon>
               </td>
+              -->
              </tr>
           </tbody>
         </table>
@@ -178,89 +123,164 @@
 
 
 
-<div class="modal fade" id="formularioActualizar" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="update-form" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
 
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLabel">Update Customer</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true"></span>
         </button>
       </div>
-      <form ngNativeValidate [formGroup]="customerActualizarForm" (ngSubmit)="updateCustomer(customerActualizarForm.value)"
+      <form ngNativeValidate [formGroup]="UpdateCustomerForm" (ngSubmit)="updateCustomer(UpdateCustomerForm.value)"
         *ngIf="customerUpdated">
         <div class="modal-body">
+<table>
+  <tbody>
 
+
+    <tr>
+      <td>
           <div class="form-group">
-            <label for="ClientId_uuid">Id:</label>
-            <input type="text" name="" id="ClientId_uuid" class="form-control" placeholder="ClientId_uuid" formControlName="ClientId_uuid"
-              required readonly [(ngModel)]="customerUpdated.ClientId_uuid">
+            <label for="PK">Id:</label>
+            <input type="text" name="" id="PK" class="form-control" placeholder="PK" formControlName="PK"
+              required readonly [(ngModel)]="customerUpdated.PK">
           </div>
-
+        </td>
+        <td>
           <div class="form-group">
-            <label for="FirstName">Name:</label>
-            <input type="text" name="" id="FirstName" class="form-control" placeholder="FirstName" formControlName="FirstName"
-            [(ngModel)]="customerUpdated.FirstName">
+            <label for="GSI1PK">Name:</label>
+            <input type="text" name="" id="GSI1PK" class="form-control" placeholder="GSI1PK (Full Name)" formControlName="GSI1PK"
+            [(ngModel)]="customerUpdated.GSI1PK">
           </div>
+        </td>
+        </tr>
 
 
+
+        <tr>
+          <td>
           <div class="form-group">
-            <label for="PrimaryAddress">Primary Address:</label>
-            <input type="text" name="" id="PrimaryAddress" class="form-control" placeholder="PrimaryAddress"
-              formControlName="PrimaryAddress" [(ngModel)]="customerUpdated.PrimaryAddress">
+            <label for="Address1">Primary Address:</label>
+            <input type="text" name="" id="Address1" class="form-control" placeholder="Address1" formControlName="Address1"
+              formControlName="Address1" [(ngModel)]="customerUpdated.Address1">
           </div>
-
+        </td>
+        <td>
           <div class="form-group">
-            <label for="PrimaryPhone">Primary Phone:</label>
-            <input type="text" name="" id="PrimaryPhone" class="form-control" placeholder="PrimaryPhone" formControlName="PrimaryPhone"
-            [(ngModel)]="customerUpdated.PrimaryPhone">
+            <label for="Phone1">Primary Phone:</label>
+            <input type="text" name="" id="Phone1" class="form-control" placeholder="Phone1" formControlName="Phone1"
+            [(ngModel)]="customerUpdated.Phone1">
           </div>
+        </td>
+        </tr>
 
+
+        <tr>
+          <td>
           <div class="form-group">
-            <label for="SecondaryAddress">Secondary Address:</label>
-            <input type="text" name="" id="SecondaryAddress" class="form-control" placeholder="SecondaryAddress" formControlName="SecondaryAddress"
-            [(ngModel)]="customerUpdated.SecondaryAddress">
+            <label for="Address2">Secondary Address:</label>
+            <input type="text" name="" id="Address2" class="form-control" placeholder="Address2"
+              formControlName="Address2" [(ngModel)]="customerUpdated.Address2">
           </div>
+        </td>
 
+        <td>
           <div class="form-group">
-            <label for="SecondaryPhone">Secondary Phone:</label>
-            <input type="text" name="" id="SecondaryPhone" class="form-control" placeholder="SecondaryPhone"
-              formControlName="SecondaryPhone" [(ngModel)]="customerUpdated.SecondaryPhone">
+            <label for="Phone2">Secondary Phone:</label>
+            <input type="text" name="" id="Phone2" class="form-control" placeholder="Phone2" formControlName="Phone2"
+            [(ngModel)]="customerUpdated.Phone2">
           </div>
+        </td>
+        </tr>
 
+        <tr>
+          <td>
           <div class="form-group">
-            <label for="District">District:</label>
-            <input type="text" name="" id="District" class="form-control" placeholder="District" formControlName="District"
-            [(ngModel)]="customerUpdated.District">
+            <label for="Email">Email:</label>
+            <input type="email" name="" id="Email" class="form-control" placeholder="Email" formControlName="Email"
+            [(ngModel)]="customerUpdated.Email">
           </div>
+        </td>
 
+<td>
+          <div class="form-group">
+            <label for="Email">In charge:</label>
+            <input type="text" name="" id="InCharge" class="form-control" placeholder="InCharge" formControlName="InCharge"
+            [(ngModel)]="customerUpdated.InCharge">
+          </div>
+        </td>
+        </tr>
+
+
+<tr>
+  <td>
+          <div class="form-group">
+            <label for="GSI1SK">District:</label>
+            <input type="text" name="" id="GSI1SK" class="form-control" placeholder="District" formControlName="GSI1SK"
+            [(ngModel)]="customerUpdated.GSI1SK">
+          </div>
+        </td>
+
+        <td>
           <div class="form-group">
             <label for="Notes">Notes:</label>
-            <input type="text" name="" id="Notes" class="form-control" placeholder="Notes"
+            <input rows="2" type="text" name="" id="Notes" class="form-control" placeholder="Notes"
             formControlName="Notes" [(ngModel)]="customerUpdated.Notes">
           </div>
+        </td>
+      </tr>
 
+
+<tr>
+  <td>
           <div class="form-group">
             <label for="Intrest">Intrest:</label>
             <select formControlName="Intrest" id="Intrest" class="form-control" placeholder="Intrest" [(ngModel)]="customerUpdated.Intrest">
               <option *ngFor="let options of interstOptions">{{options}}</option>
             </select>
           </div>
-
+  </td>
+  <td>
           <div class="form-group">
-            <label for="Active">Active:</label>
-            <select formControlName="Active" id="Active" class="form-control" placeholder="Active" [(ngModel)]="customerUpdated.Active">
-              <option *ngFor="let options of activeOptions">{{options}}</option>
+            <label for="GSI2PK">Active:</label>
+            <select formControlName="GSI2PK" id="GSI2PK" class="form-control" placeholder="GSI2PK" [(ngModel)]="customerUpdated.GSI2PK">
+              <option *ngFor="let options of statusOptions">{{options}}</option>
             </select>
           </div>
+  </td>
+</tr>
 
+
+<tr>
+<td>
+          <div class="form-group">
+            <label for="DateAdded">Date Added:</label>
+            <input readonly type="text" name="" id="DateAdded" class="form-control" placeholder="DateAdded" formControlName="DateAdded"
+            [(ngModel)]="customerUpdated.DateAdded">
+          </div>
+        </td>
+
+        <td>
+          <div class="form-group">
+            <label for="DateChanged">Date Changed:</label>
+            <input readonly type="text" name="" id="DateChanged" class="form-control" placeholder="DateChanged" formControlName="DateChanged"
+            [(ngModel)]="customerUpdated.DateChanged">
+          </div>
+        </td>
+        </tr>
+
+
+        </tbody>
+        </table>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
           <button type="submit" style="background-color: #333;" class="btn btn-primary">Update</button>
         </div>
       </form>
     </div>
   </div>
 </div>
+

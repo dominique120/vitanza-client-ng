@@ -13,8 +13,6 @@ export class LoginService {
   constructor(private http: HttpClient) { }
 
   public signin(user: User){
-    //const ruta = Constants.authUrl;
-
     const ruta = v3Api.auth
     const body = JSON.stringify(user);
     return this.http.post<Response>(ruta, body);

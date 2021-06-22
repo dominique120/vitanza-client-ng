@@ -11,11 +11,12 @@ export class query_body {
   expression: string;
   key_name: string;
   expression_values: any;
+  projection: string;
 }
 
 export class update_body {
-  contents: Map<string, string>;
-  primarykey: Map<string, string>;
+  contents: any;
+  primarykey: any;
 }
 
 export class auth_body {

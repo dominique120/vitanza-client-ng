@@ -35,6 +35,8 @@ export class OrdersService {
     req.key_name = "GSI2PK";
     req.expression_values = values;
 
+    req.projection = "";
+
     return this.http.post<Order[]>(v3Api.query, JSON.stringify(req), { headers: httpHeaders }).pipe(
       map((res) => {
         this.orders = res;

@@ -35,6 +35,8 @@ export class OrderdetailsService {
     req.key_name = "";
     req.expression_values = values;
 
+    req.projection = "";
+
     const url = v3Api.query;
     return this.http.post<OrderDetail[]>(url, JSON.stringify(req), { headers: httpHeaders }).pipe(
       map((res) => {

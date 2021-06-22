@@ -16,8 +16,9 @@ export class Customer{
   Intrest: string;
   Notes: string;
   Email: string;
-  inCharge: string;
-  dateAdded: string;
+  InCharge: string;
+  DateAdded: string;
+  DateChanged: string;
 
   // Orders
   orders:Order[];

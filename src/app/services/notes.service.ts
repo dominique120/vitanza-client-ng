@@ -48,6 +48,8 @@ export class NotesService {
       req.key_name = "GSI1PK";
       req.expression_values = values;
 
+      req.projection = "";
+
       return this.http.post<Note[]>(v3Api.query, JSON.stringify(req), { headers: httpHeaders }).pipe(
         map((res) => {
           this.notes = res;

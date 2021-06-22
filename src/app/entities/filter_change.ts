@@ -4,7 +4,7 @@ export class Filter_change {
   PK: string; //FLI|uuid
   SK: string; // FLC|uuid
   GSI1PK: string; // Status
-  GSI1SK: string; // datechange
+  GSI1SK: string; // scheduled datechange
   GSI2PK: string; // CLI|uuid
   Notes: string;
   Who: string;

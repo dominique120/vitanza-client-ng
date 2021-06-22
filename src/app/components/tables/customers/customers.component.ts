@@ -17,16 +17,16 @@ export class CustomersComponent implements OnInit {
   faChevronUp = faChevronUp;
 
   reverse: boolean = false;
-  customerFilter: any = {GSI1PK: ''}
-  customerOrder: string = "Names"
+  customerFilter: any = { GSI1PK: '' }
+  customerOrder: string = "GSI1PK"
   pageNumber: number = 1
 
   customers: Customer[];
   newCustomer: any;
 
-  interstOptions: any = [ "Filters", "Chemicals", "Filters and Chemicals"]
-  districtOptions: any = [ "Cercado de Lima", "Ate", "Barranco", "Breña", "Comas", "Chorrillos", "El Agustino", "Jesús María", "La Molina", "La Victoria", "Lince", "Magdalena del Mar", "Miraflores", "Pueblo Libre", "Puente Piedra", "Rimac", "San Isidro", "Independencia", "San Juan de Miraflores", "San Luis", "San Martin de Porres", "San Miguel", "Santiago de Surco", "Surquillo", "Villa María del Triunfo", "San Juan de Lurigancho", "Santa Rosa", "Los Olivos", "San Borja", "Villa El Savador", "Santa Anita", "Cercado Callao", "Bellavista", "Carmen de la Legua", "La Perla", "La Punta", "Ventanilla" ]
-
+  interstOptions: any = ["Filters", "Chemicals", "Filters and Chemicals"]
+  districtOptions: any = ["Cercado de Lima", "Ate", "Barranco", "Breña", "Comas", "Chorrillos", "El Agustino", "Jesús María", "La Molina", "La Victoria", "Lince", "Magdalena del Mar", "Miraflores", "Pueblo Libre", "Puente Piedra", "Rimac", "San Isidro", "Independencia", "San Juan de Miraflores", "San Luis", "San Martin de Porres", "San Miguel", "Santiago de Surco", "Surquillo", "Villa María del Triunfo", "San Juan de Lurigancho", "Santa Rosa", "Los Olivos", "San Borja", "Villa El Savador", "Santa Anita", "Cercado Callao", "Bellavista", "Carmen de la Legua", "La Perla", "La Punta", "Ventanilla"]
+  statusOptions: any = ["ACTIVE", "DEACTIVATED"]
 
   constructor(private customer_svc: CustomersService) { }
 
@@ -34,30 +34,33 @@ export class CustomersComponent implements OnInit {
   faTimes = faTimes;
 
   AddCustomerForm = new FormGroup({
-    FullName: new FormControl(), // GSI1PK
-    PrimaryAddress: new FormControl(),
-    PrimaryPhone: new FormControl(),
-    SecondaryAddress: new FormControl(),
-    SecondaryPhone: new FormControl(),
-    District: new FormControl(), // GSI1SK
+    GSI1PK: new FormControl(), // Names
+    Address1: new FormControl(),
+    Phone1: new FormControl(),
+    Address2: new FormControl(),
+    Phone2: new FormControl(),
+    GSI1SK: new FormControl(), // District
     Intrest: new FormControl(),
     Notes: new FormControl(),
     Email: new FormControl(),
-    inCharge: new FormControl()
+    InCharge: new FormControl()
   });
 
-  customerActualizarForm = new FormGroup({
-    FullName: new FormControl(), // GSI1PK
-    PrimaryAddress: new FormControl(),
-    PrimaryPhone: new FormControl(),
-    SecondaryAddress: new FormControl(),
-    SecondaryPhone: new FormControl(),
-    District: new FormControl(), // GSI1SK
+  UpdateCustomerForm = new FormGroup({
+    PK: new FormControl(), // ID
+    GSI1PK: new FormControl(), // Names
+    Address1: new FormControl(),
+    Phone1: new FormControl(),
+    Address2: new FormControl(),
+    Phone2: new FormControl(),
+    GSI1SK: new FormControl(), // District
     Intrest: new FormControl(),
     Notes: new FormControl(),
     Email: new FormControl(),
     InCharge: new FormControl(),
-    Active: new FormControl()
+    GSI2PK: new FormControl(), // status
+    DateAdded: new FormControl(),
+    DateChanged: new FormControl()
   });
 
   customerUpdated: Customer;
@@ -66,77 +69,57 @@ export class CustomersComponent implements OnInit {
     this.getCustomers();
   }
 
-  setOrder(value: string){
-    if(this.customerOrder === value){
-        this.reverse = !this.reverse;
+  setOrder(value: string) {
+    if (this.customerOrder === value) {
+      this.reverse = !this.reverse;
     }
   }
 
-  mostrarFormularioAgregar(){
-    $("#formulario-agregar").slideDown("slow");
+  showAdditionForm() {
+    $("#addition-form").slideDown("slow");
   }
 
-  cerrarFormularioAgregar(){
-    $("#formulario-agregar").slideUp("slow");
+  closeAdditionForm() {
+    $("#addition-form").slideUp("slow");
   }
 
-  addCustomer(formValues){
-    console.log(formValues);
-
+  addCustomer(formValues) {
     let newCustomer: Customer = new Customer();
 
-    newCustomer.GSI1PK    =   formValues.FullName;
-    newCustomer.GSI1SK    =   formValues.District;
-    newCustomer.Address1  =   formValues.PrimaryAddress;
-    newCustomer.Address2  =   formValues.SecondaryAddress;
-    newCustomer.Phone1    =   formValues.PrimaryPhone;
-    newCustomer.Phone2    =   formValues.SecondaryPhone;
-    newCustomer.Intrest   =   formValues.Intrest;
-    newCustomer.Notes     =   formValues.Notes;
-    newCustomer.Email     =   formValues.Email;
-    newCustomer.inCharge  =   formValues.inCharge;
+    newCustomer.GSI1PK = formValues.GSI1PK; // names
+    newCustomer.GSI1SK = formValues.GSI1SK; // district
+    newCustomer.Address1 = formValues.Address1;
+    newCustomer.Address2 = formValues.Address2;
+    newCustomer.Phone1 = formValues.Phone1;
+    newCustomer.Phone2 = formValues.Phone2;
+    newCustomer.Intrest = formValues.Intrest;
+    newCustomer.Notes = formValues.Notes;
+    newCustomer.Email = formValues.Email;
+    newCustomer.InCharge = formValues.InCharge;
 
-    this.customer_svc.insertCustomer(newCustomer).subscribe(
-      (res) => {
-        console.log(res)
-        this.newCustomer = {
-          GSI1PK    :  formValues.FullName,
-          GSI1SK    :  formValues.District,
-          Address1  :  formValues.Address1,
-          Address2  :  formValues.Address2,
-          Phone1    :  formValues.Phone1,
-          Phone2    :  formValues.Phone2,
-          Intrest   :  formValues.Intrest,
-          Notes     :  formValues.Notes,
-          Email     :  formValues.Email,
-          inCharge  :  formValues.inCharge
-        }
+    let statusCode = this.customer_svc.insertCustomer(newCustomer)
 
-        this.customers.push(this.newCustomer);
-
-        this.AddCustomerForm.reset();
-
-        $("#formulario-agregar").slideUp("slow");
-      }
-    )
-  }
-
-  seleccionar(itemCustomer: Customer){
-    console.log(itemCustomer);
-    this.customerUpdated = itemCustomer;
-    $("#formularioActualizar").modal('show');
-  }
-
-  eliminar(itemCustomer:Customer){
-    var respuesta = confirm("Are you sure you wish to delete " + itemCustomer.GSI1PK + " (This will remove all asociated information)?");
-    if (respuesta == true) {
-      this.customer_svc.deleteCustomer(itemCustomer.PK).subscribe();
-      this.customers = this.customers.filter(item => item.PK !== itemCustomer.PK);
-      alert("You have removed: "  + itemCustomer.GSI1PK + " " + itemCustomer.GSI1PK + " from the registry.");
+    if (statusCode = 201) {
+      this.customers.push(this.newCustomer);
+      this.AddCustomerForm.reset();
+      $("#addition-form").slideUp("slow");
+      alert("Added customer: " + newCustomer.GSI1PK);
+    } else {
+      alert(newCustomer.GSI1PK + " was not added!! \n\nError code: " + statusCode);
     }
+
   }
 
-  deactivate(itemCustomer:Customer){
+  seleccionar(customerId) {
+    this.customer_svc.selectOneCustomer(customerId).subscribe(
+      (res: Customer) => {
+        this.customerUpdated = res;
+      }
+    );
+    $("#update-form").modal('show');
+  }
+
+  deactivate(itemCustomer: Customer) {
     var respuesta = confirm("Are you sure you wish to deactivate " + itemCustomer.GSI1PK + "?");
     if (respuesta == true) {
       this.customer_svc.deactivateCustomer(itemCustomer.PK).subscribe();
@@ -145,27 +128,35 @@ export class CustomersComponent implements OnInit {
     }
   }
 
-  updateCustomer(values){
+  updateCustomer(values) {
     console.log(values);
 
     let c: Customer = new Customer();
 
-    c.PK = values.ClientId_uuid;
-    c.SK = values.ClientId_uuid;
-    c.GSI1PK = values.FullName;
-    c.Address1 = values.PrimaryAddress;
-    c.Phone1 = values.PrimaryPhone;
-    c.Address2 = values.SecondaryAddress;
-    c.Phone2 = values.SecondaryPhone;
-    c.GSI1SK = values.District;
+    c.GSI1PK = values.GSI1PK;
+    c.Address1 = values.Address1;
+    c.Phone1 = values.Phone1;
+    c.Address2 = values.Address2;
+    c.Phone2 = values.Phone2;
+    c.GSI1SK = values.GSI1SK;
     c.Intrest = values.Intrest;
     c.Notes = values.Notes;
-    c.GSI2PK = values.Active;
+    c.GSI2PK = values.GSI2PK;
+    c.Email = values.Email;
+    c.InCharge = values.InCharge;
 
 
-    this.customer_svc.updateCustomer(c).subscribe();
+    let statusCode = this.customer_svc.updateCustomer(c, values.PK);
+
+    if (statusCode = 201) {
       alert("Updated: " + c.GSI1PK);
-      $('#formulario-actualizar').modal('hide');
+      $('#update-form').modal('hide');
+      this.getCustomers();
+    } else {
+      alert(c.GSI1PK + " was not updated!! \n\nError code: " + statusCode);
+    }
+
+
   }
 
 
