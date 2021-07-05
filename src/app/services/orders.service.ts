@@ -33,6 +33,7 @@ export class OrdersService {
 
     req.expression = "GSI2PK = :status";
     req.key_name = "GSI2PK";
+    req.projection = "";
     req.expression_values = values;
 
     req.projection = "";

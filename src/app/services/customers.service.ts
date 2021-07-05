@@ -2,8 +2,8 @@ import { Customer } from '../entities/customer';
 import { Constants } from '../entities/Constants';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable, pipe, of } from 'rxjs';
-import { map, catchError } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { v3Api, query_body, update_body } from '../entities/v3api';
 import { nanoid } from "nanoid"
 import { Tools } from '../tools/tools';
@@ -16,6 +16,36 @@ export class CustomersService {
   customers: Customer[];
   customer: Customer;
   constructor(private http: HttpClient) { }
+
+
+  getCustomerNames(): Observable<Customer[]> {
+    const httpHeaders: HttpHeaders = new HttpHeaders({
+      "x-vts-auth": localStorage.getItem("jwt")
+    });
+
+    class expression_values {
+      status: string;
+    }
+
+    let req = new query_body();
+    let values = new expression_values();
+
+    values.status = "ACTIVE";
+
+    req.expression = "GSI2PK = :status";
+    req.key_name = "GSI2PK";
+    req.expression_values = values;
+
+    req.projection = "PK, GSI1PK";
+
+    return this.http.post<Customer[]>(v3Api.query, JSON.stringify(req), { headers: httpHeaders }).pipe(
+      map((res) => {
+        this.customers = res;
+        return this.customers;
+      })
+    )
+  }
+
 
   getCustomersByStatus(status: string): Observable<Customer[]> {
     const httpHeaders: HttpHeaders = new HttpHeaders({
@@ -110,23 +140,4 @@ export class CustomersService {
     return statusCode
   }
 
-  deleteCustomer(customer_id) {
-    const ruta = Constants.customerWithId(customer_id);
-
-    const httpHeaders: HttpHeaders = new HttpHeaders({
-      "x-vts-auth": localStorage.getItem("jwt")
-    });
-
-    return this.http.delete(ruta, { headers: httpHeaders });
-  }
-
-  deactivateCustomer(customer_id) {
-    const ruta = Constants.deactivateCustomerWithId(customer_id);
-
-    const httpHeaders: HttpHeaders = new HttpHeaders({
-      "x-vts-auth": localStorage.getItem("jwt")
-    });
-
-    return this.http.post(ruta, { headers: httpHeaders });
-  }
 }

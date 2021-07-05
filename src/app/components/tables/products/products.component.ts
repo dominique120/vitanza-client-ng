@@ -21,7 +21,7 @@ export class ProductsComponent implements OnInit {
   faTimes = faTimes;
   constructor(private product_svc: ProductsService) { }
   ngOnInit(): void {
-    this.getProducts();
+    this.getProducts(type);
   }
 
   mostrarFormularioAgregar(){
@@ -32,14 +32,13 @@ export class ProductsComponent implements OnInit {
     $("#formulario-agregar").slideUp("slow");
   }
 
-  getProducts(): void {
-    this.product_svc.selectProducts().subscribe(
+  getProducts(type: string): void {
+    this.product_svc.getProcutsByType(type).subscribe(
       (res: Product[]) => {
         this.products = res;
       }
     );
   }
-
 
 
   seleccionar(itemProduct: Product){
@@ -48,13 +47,5 @@ export class ProductsComponent implements OnInit {
     $("#formularioActualizar").modal('show');
   }
 
-  eliminar(itemProduct: Product){
-    var respuesta = confirm("Delete " + itemProduct.PK + "?");
-    if (respuesta == true) {
-      this.product_svc.deleteProducts(itemProduct.PK).subscribe();
-      this.products = this.products.filter(item => item.PK !== itemProduct.PK);
-      alert("Se ha eliminado: "  + itemProduct.PK );
-    }
-  }
 
 }

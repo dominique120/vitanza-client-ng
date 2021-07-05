@@ -16,11 +16,9 @@ export class OrdersComponent implements OnInit {
   newOrder: any;
   orderUpdated: Order;
 
-
   faEdit = faEdit;
   faTimes = faTimes;
   constructor(private order_svc: OrdersService) { }
-
 
   ordersAgregarForm = new FormGroup({
     FirstName: new FormControl(),

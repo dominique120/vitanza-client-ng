@@ -119,15 +119,6 @@ export class CustomersComponent implements OnInit {
     $("#update-form").modal('show');
   }
 
-  deactivate(itemCustomer: Customer) {
-    var respuesta = confirm("Are you sure you wish to deactivate " + itemCustomer.GSI1PK + "?");
-    if (respuesta == true) {
-      this.customer_svc.deactivateCustomer(itemCustomer.PK).subscribe();
-      this.customers = this.customers.filter(item => item.PK !== itemCustomer.PK);
-      alert(itemCustomer.GSI1PK + " has been de-activated.");
-    }
-  }
-
   updateCustomer(values) {
     console.log(values);
 
@@ -145,7 +136,6 @@ export class CustomersComponent implements OnInit {
     c.Email = values.Email;
     c.InCharge = values.InCharge;
 
-
     let statusCode = this.customer_svc.updateCustomer(c, values.PK);
 
     if (statusCode = 201) {
@@ -155,8 +145,6 @@ export class CustomersComponent implements OnInit {
     } else {
       alert(c.GSI1PK + " was not updated!! \n\nError code: " + statusCode);
     }
-
-
   }
 
 
