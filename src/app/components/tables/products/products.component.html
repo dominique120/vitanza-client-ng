@@ -4,9 +4,11 @@
 
 
       <div class="form-group">
-        <button class="btn btn-primary" style="background-color: #333;" (click)="mostrarFormularioAgregar()">New
+        <button class="btn btn-primary" style="background-color: #333;" (click)="showAdditionForm()">New
           Product</button>
       </div>
+
+
 
 <!--
       <div id="formulario-agregar">
@@ -62,40 +64,39 @@
 
 
 
-
-
-
 <div class="p-4"></div>
         <table class="table">
           <thead>
             <tr>
-              <th>Name</th>
+              <th (click)="setOrder('Name')"
+              [class.active]="productOrder==='Name'">
+              Name
+                <span [hidden]="reverse"><fa-icon [icon]="faChevronUp"></fa-icon></span>
+                <span [hidden]="!reverse"><fa-icon [icon]="faChevronUp"></fa-icon></span>
+              </th>
               <th>Description</th>
               <th>Price</th>
               <th>Available Stock</th>
-              <th>Paid</th>
-              <th></th>
-              <th></th>
+              <th>Details</th>
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let product of products">
-              <td>{{product.ProductName}}</td>
-              <td>{{product.ProductDescription}}</td>
-              <td>{{product.Price}}</td>
+            <tr *ngFor="let product of products
+            | filterBy: productFilter
+            | orderBy: productOrder : reverse
+            | paginate: { itemsPerPage: 30, currentPage: pageNumber }
+            ">
+              <td>{{product.Name}}</td>
+              <td>{{product.Description}}</td>
+              <td>{{product.BasePrice}}</td>
               <td>{{product.AvailableStock}}</td>
               <td>
                 <fa-icon [icon]="faEdit" (click)="seleccionar(product)"></fa-icon>
               </td>
-              <td>
-                <fa-icon [icon]="faTimes" (click)="eliminar(product)"></fa-icon>
-              </td>
              </tr>
           </tbody>
         </table>
-
       </div>
-
     </div>
 </section>
 

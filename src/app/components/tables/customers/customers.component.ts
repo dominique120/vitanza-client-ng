@@ -110,7 +110,7 @@ export class CustomersComponent implements OnInit {
 
   }
 
-  seleccionar(customerId) {
+  select(customerId) {
     this.customer_svc.selectOneCustomer(customerId).subscribe(
       (res: Customer) => {
         this.customerUpdated = res;

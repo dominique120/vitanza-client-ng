@@ -111,13 +111,8 @@
               <td>{{cust.Address1}}</td>
               <td>{{cust.GSI1SK}}</td>
               <td>
-                <fa-icon [icon]="faEdit" (click)="seleccionar(cust.PK)"></fa-icon>
+                <fa-icon [icon]="faEdit" (click)="select(cust.PK)"></fa-icon>
               </td>
-              <!--
-              <td>
-                <fa-icon [icon]="faTimes" (click)="deactivate(cust)"></fa-icon>
-              </td>
-              -->
              </tr>
           </tbody>
         </table>

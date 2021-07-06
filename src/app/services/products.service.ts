@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { query_body, v3Api } from '../entities/v3api';
+import { query_body, update_body, v3Api } from '../entities/v3api';
 import { nanoid } from 'nanoid';
 import { Tools } from '../tools/tools';
 
@@ -38,6 +38,34 @@ export class ProductsService {
     req.expression_values = values;
 
     req.projection = "PK, Name, Description, BasePrice, Stock";
+
+    return this.http.post<Product[]>(v3Api.query, JSON.stringify(req), { headers: httpHeaders }).pipe(
+      map((res) => {
+        this.products = res;
+        return this.products;
+      })
+    )
+  }
+
+  getProcutsByStatus(status: string): Observable<Product[]> {
+    const httpHeaders: HttpHeaders = new HttpHeaders({
+      "x-vts-auth": localStorage.getItem("jwt")
+    });
+
+    class expression_values {
+      status: string;
+    }
+
+    let req = new query_body();
+    let values = new expression_values();
+
+    values.status = status;
+
+    req.expression = "GSI2PK = :status";
+    req.key_name = "GSI2PK";
+    req.expression_values = values;
+
+    req.projection = "";
 
     return this.http.post<Product[]>(v3Api.query, JSON.stringify(req), { headers: httpHeaders }).pipe(
       map((res) => {
@@ -82,6 +110,36 @@ export class ProductsService {
     });
 
     return statusCode;
+  }
+
+
+  updateCustomer(product: Product, productId: string): Number {
+    let statusCode: Number = 0
+    const httpHeaders: HttpHeaders = new HttpHeaders({
+      "x-vts-auth": localStorage.getItem("jwt")
+    });
+
+    let updBody = new update_body();
+
+    class PK {
+      PK: string;
+      SK: string;
+    }
+
+    let pk = new PK();
+    pk.PK = productId;
+    pk.SK = product.SK;
+
+    updBody.primarykey = pk;
+
+    updBody.contents = product;
+
+    this.http.put(v3Api.update_item, JSON.stringify(updBody), { headers: httpHeaders, observe: 'response' })
+      .subscribe(response => {
+        statusCode = response.status;
+      });
+
+    return statusCode
   }
 
 
